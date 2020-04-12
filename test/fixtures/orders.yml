@@ -2,12 +2,12 @@
 
 one:
   resturant: MyString
-  menu_image: MyString
+  menu: MyString
   type: 
   status: MyString
 
 two:
   resturant: MyString
-  menu_image: MyString
+  menu: MyString
   type: 
   status: MyString

@@ -1,4 +1,4 @@
 class GroupFriend < ApplicationRecord
-    has_and_belongs_to_many :users
-    belongs_to :group
+  belongs_to :user
+  belongs_to :group
 end
