@@ -1,0 +1,32 @@
+<div class="container">
+<%= form_with(model: @order, url: order_index_path) do %>
+  <div class="form-group">
+    <%= label_tag(:order, "Order for:", class: "colFormLabelSm") %>
+    <%= text_field_tag(:order, nil, placeholder: "order type... ", class:"form-control") %> 
+  </div>
+  
+  <div class="form-group">
+    <%= label_tag(:form, "write the resturant name") %>
+    <br>
+    <%= label_tag(:form, "from : ", class: "colFormLabelSm") %>
+    <%= text_field_tag(:test, nil, placeholder: "resturant... ", class:"form-control") %> 
+  </div>
+
+  <div class="form-group">
+    <%= label_tag(:firend, "you can write friend name or group") %>
+    <br>
+    <%= label_tag(:firend, "friends : ", class: "colFormLabelSm") %>
+    <%= text_field_tag(:firend, nil, placeholder: "type freind name... ", class:"form-control") %> 
+  </div>
+
+  <div class="custom-file">
+    <%= label_tag(:image, "Menu image : ", class: "custom-file-label") %>
+    <%= file_field_tag('image', accept: 'image/jpg', class: "custom-file-input") %> 
+  </div>
+    <br>
+    <br>
+
+  <%= submit_tag("publish", class: "btn btn-primary") %>
+  </div>
+<% end %>
+</div>
