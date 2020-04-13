@@ -1,0 +1,173 @@
+<%= form_with(url: "home/add_group", method: "get") do %>
+ <div class="form-row m-4">
+  <div class="form-group col-md-12 row">
+        <%= label_tag(:group, "Add New Group:", class: "col-sm-2 mt-2 mr-0") %> 
+        <%= text_field_tag(:group, nil , class: "form-control col-sm-4", placeholder: "Add Group" ) %>
+        <%= submit_tag("Add", class: "col-sm-2 ml-2 btn btn-warning valid") %>
+  </div>
+ </div>
+<div class="container bootstrap snippet">
+ 
+   <div class="row">
+
+
+      <div class="col-sm-3">
+            <div class="header">
+                <h3 class="text-muted prj-name">
+                    <span class="fa fa-users fa-2x principal-title"></span>
+                    Groups
+                </h3>
+            </div>
+
+
+            <div class="jumbotron list-content p-2">
+                <div class="table-responsive">
+                <table class="table">
+                       <tr>
+                            <td width=60%>OS</td>
+                        
+                            <td width=40%>
+                            
+                                <a  href="#navigation-main" aria-label="Skip to main navigation" class="mr-2" >
+                                   <i class="fa fa-user-plus fa-lg" aria-hidden="true" style="color: blue;font-size: 1.5em;"></i>
+
+                                </a>
+                                <a  href="#navigation-main" aria-label="Skip to main navigation" class="mr-2 ">
+                                 <i class="fa fa-trash fa-lg" aria-hidden="true" style="color: red;font-size: 1.5em;"></i>
+                                 
+                                </a>
+                               
+                            </td>
+                          
+                       </tr>
+                        <tr>
+                            <td width=60%>OSAD</td>
+                           
+                            <td width=40%>
+                                <a  href="#navigation-main" aria-label="Skip to main navigation" class="mr-2">
+                                   <i class="fa fa-user-plus fa-lg" aria-hidden="true" style="color: blue;font-size: 1.5em;"></i>
+
+                                </a>
+                                <a  href="#navigation-main" aria-label="Skip to main navigation" class="mr-2">
+                                 <i class="fa fa-trash fa-lg" aria-hidden="true" style="color: red;font-size: 1.5em;"></i>
+                                 
+                                </a>
+                            </td>
+                       </tr>
+                        <tr>
+                            <td width=60%>CPD</td>
+                           
+                            <td width=40%>
+                                <a  href="#navigation-main" aria-label="Skip to main navigation" class="mr-2">
+                                   <i class="fa fa-user-plus fa-lg" aria-hidden="true" style="color: blue;font-size: 1.5em;"></i>
+
+                                </a>
+                                <a  href="#navigation-main" aria-label="Skip to main navigation" class="mr-2">
+                                 <i class="fa fa-trash fa-lg" aria-hidden="true" style="color: red;font-size: 1.5em;"></i>
+                                 
+                                </a>
+                            </td>
+                       </tr>
+                </table>
+                </div>
+            </div>
+            
+      </div>
+
+
+      <div class="col-sm-8">
+            <div class="header">
+                <h3 class="text-muted prj-name">
+                    <span class="fa fa-user fa-2x principal-title"></span>
+                    OS
+                </h3>
+            </div>
+
+
+            <div class="jumbotron list-content pt-4 pb-2">
+                <ul class="list-group">
+                <div class="row">
+            
+                <div class="row pb-2">           
+                        <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
+                            <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
+                            <label class="name">
+                                Mariana pajon
+                            </label>
+                            <label class="pull-right">
+                                <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Delete">Unfriend</a>
+                                <%# <a  class="btn btn-info  btn-xs glyphicon glyphicon glyphicon-comment" href="#" title="Send message">Join</a> %>
+                            </label>
+                            <div class="break"></div>
+                        </li>
+                        <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
+                            <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
+                            <label class="name">
+                                Mariana pajon
+                            </label>
+                            <label class="pull-right">
+                                <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Delete">Unfriend</a>
+                                <%# <a  class="btn btn-info  btn-xs glyphicon glyphicon glyphicon-comment" href="#" title="Send message">Join</a> %>
+                            </label>
+                            <div class="break"></div>
+                        </li>
+                        <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
+                            <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
+                            <label class="name">
+                                Mariana pajon
+                            </label>
+                            <label class="pull-right">
+                                <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Delete">Unfriend</a>
+                                <%# <a  class="btn btn-info  btn-xs glyphicon glyphicon glyphicon-comment" href="#" title="Send message">Join</a> %>
+                            </label>
+                            <div class="break"></div>
+                        </li>
+
+
+                        <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
+                            <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
+                            <label class="name">
+                                Mariana pajon
+                            </label>
+                            <label class="pull-right">
+                                <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Delete">Unfriend</a>
+                                <%# <a  class="btn btn-info  btn-xs glyphicon glyphicon glyphicon-comment" href="#" title="Send message">Join</a> %>
+                            </label>
+                            <div class="break"></div>
+                        </li>
+                        <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
+                            <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
+                            <label class="name">
+                                Mariana pajon
+                            </label>
+                            <label class="pull-right">
+                                <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Delete">Unfriend</a>
+                                <%# <a  class="btn btn-info  btn-xs glyphicon glyphicon glyphicon-comment" href="#" title="Send message">Join</a> %>
+                            </label>
+                            <div class="break"></div>
+                        </li>
+                        <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
+                            <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
+                            
+                            <label class="name">
+                                Mariana pajon
+                            </label>
+                            <label class="pull-right">
+                                <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Delete">Unfriend</a>
+                                <%# <a  class="btn btn-info  btn-xs glyphicon glyphicon glyphicon-comment" href="#" title="Send message">Join</a> %>
+                            </label>
+                            <div class="break"></div>
+                        </li>
+          
+                </div>
+            
+
+                </ul>
+            </div>
+            </div>
+      </div>
+    </div>
+ </div>
+
+<% end %>
+
