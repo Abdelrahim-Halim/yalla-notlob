@@ -5,4 +5,9 @@ class HomeController < ApplicationController
   def addFriend
     render "home/addFriend"
   end
+
+  def addGroup
+    render "home/addGroup"
+  end
+  
 end
