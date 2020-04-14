@@ -1,4 +1,10 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  extend Devise::Models
+  mount_uploader :image 
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
   has_many :notifications
   has_many :orders
   has_many :groups
@@ -19,4 +25,9 @@ class User < ApplicationRecord
   def friendships
     self.friendships_as_friend_a
   end
+  attr_accessor :first_name ,:last_name, :email, :password,  :image, :image_cache, :remove_image
+
+  validates_presence_of   :image
+  validates_integrity_of  :image
+  validates_processing_of :image
 end
