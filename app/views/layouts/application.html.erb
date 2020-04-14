@@ -87,7 +87,7 @@
                   </ul>
                 </div>
                 <div class="book_btn d-none d-xl-block">
-                  <a class="#" href="#">Order Now</a>
+                  <a      <%=  link_to  "logout", destroy_user_session_path, method: :delete %> > </a>
                 </div>
               </div>
             </div>
@@ -139,9 +139,15 @@
     </div>
   </div>
   <!-- slider_area_end -->
+<<<<<<< HEAD
   <div class = "container">
      <%= yield %> 
   </div>
+=======
+    <%= render 'layouts/alerts' %>
+
+  <%= yield %> 
+>>>>>>> a0a465e94fbc396726a6d0ad9b9346bf785f2ee1
 
   <footer class="footer">
     <div class="footer_top">
@@ -258,7 +264,6 @@
   <script src="../js/mail-script.js"></script>
 
   <script src="../js/main.js"></script>
-
 </body>
 
 </html>
