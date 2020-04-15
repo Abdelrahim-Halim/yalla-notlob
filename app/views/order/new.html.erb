@@ -1,32 +1,158 @@
 <div class="container">
-<%= form_with(model: @order, url: order_index_path) do %>
-  <div class="form-group">
-    <%= label_tag(:order, "Order for:", class: "colFormLabelSm") %>
-    <%= text_field_tag(:order, nil, placeholder: "order type... ", class:"form-control") %> 
-  </div>
-  
-  <div class="form-group">
-    <%= label_tag(:form, "write the resturant name") %>
-    <br>
-    <%= label_tag(:form, "from : ", class: "colFormLabelSm") %>
-    <%= text_field_tag(:test, nil, placeholder: "resturant... ", class:"form-control") %> 
-  </div>
 
-  <div class="form-group">
-    <%= label_tag(:firend, "you can write friend name or group") %>
-    <br>
-    <%= label_tag(:firend, "friends : ", class: "colFormLabelSm") %>
-    <%= text_field_tag(:firend, nil, placeholder: "type freind name... ", class:"form-control") %> 
-  </div>
+  <div class="row">
+    <div class="col">
+      <%= form_for( @order, url: order_index_path) do |f| %>
+        <div class="form-group">
+          <%= f.label(:order_type, "Order for:", class: "colFormLabelSm") %>
+          <%= f.select(:order_type, [["breakfast","breakfast"],["lunch","lunch"],["dinner","dinner"]],{}, class: "custom-select") %> 
+          <%= @order.errors[:order_type].first %>
+          
+        </div>
+        
+        <div class="form-group">
+          <%= f.label(:resturant, "write the resturant name") %>
+          <br>
+          <%= f.label(:resturant, "from : ", class: "colFormLabelSm") %>
+          <%= f.text_field(:resturant, class:"form-control", placeholder: "resturant... ",:required => true) %> 
+          <%= @order.errors[:resturant].first  %>
+        </div>
 
-  <div class="custom-file">
-    <%= label_tag(:image, "Menu image : ", class: "custom-file-label") %>
-    <%= file_field_tag('image', accept: 'image/jpg', class: "custom-file-input") %> 
-  </div>
-    <br>
-    <br>
+        <div class="form-group">
+            <div class="row">
+              <div class="col-10">
+                <input type="text" id="mail" placeholder="Enter friend mail or group name" class="form-control">
+              </div>
+              <div class="col-2">
+                <button type="button" class="btn btn-success" onclick="invite()" >Invite</button>
+              </div>
+            </div>
+        </div>
+        <div id="msg" style="display:none" class="" role="alert">
+          
+        </div>
 
-  <%= submit_tag("publish", class: "btn btn-primary") %>
+        <input type="hidden" id="mailValues" value="" name="mailValues">
+        <input type="hidden" id="groupValues" value="" name="groupValues">
+        <div class="custom-file">
+          <%= f.label(:image, "Menu image : ", class: "custom-file-label") %>
+          <%= f.file_field('menu', accept: 'image/jpg', class: "custom-file-input", :required => true) %> 
+          <%= @order.errors[:menu].first %>
+        </div>
+          <br>
+          <br>
+
+        <%= f.submit("publish", class: "btn btn-primary") %>
+        
+      <% end %>
+    </div>
+  <div class="col">
+    <fieldset class="border p-2">
+      <legend class="w-auto">Friends and groups will invite:</legend>
+      <div class="card-deck">
+          <div class="row" id="row">
+
+          </div>
+      </div>
+    </fieldset>
   </div>
-<% end %>
 </div>
+
+<script>
+  arr = <%=raw @friendsArrjs %>
+  groupArr = <%=raw @groupsArrjs %>
+  invited = []
+  function invite() {
+    mail = document.getElementById("mail")
+    founded = false
+    invitaion_type= "none"
+    id = null
+    email = ""
+    name = ""
+
+    for (let i=0;i<arr.length;++i){
+      if (arr[i].email == mail.value){
+        founded = true
+        id = arr[i].id
+        name = arr[i].first_name + " " +arr[i].last_name
+        email = arr[i].email
+        img = arr[i].image
+        invitaion_type = "mail"
+        break;
+      }
+    }
+
+    for (let i=0;i<groupArr.length;++i){
+      if (groupArr[i].name == mail.value){
+        founded = true
+        id = groupArr[i].id
+        name = groupArr[i].name
+        invitaion_type = "group" 
+        break;
+      }
+    }
+    msg = document.getElementById("msg")
+    if (founded && mailValues.value.search(email)==-1 && groupValues.value.search(email)==-1){
+      if (invitaion_type == mail ){
+        addElement(name, invitaion_type, email)
+      }else{
+        addElement(name, invitaion_type, name)
+      }
+      msg.style.display = "block";
+      msg.textContent = "added successfully"
+      msg.setAttribute("class","alert alert-success")
+    }else{
+      // show error 
+      msg.style.display = "block";
+      msg.textContent = "email or group not found"
+      msg.setAttribute("class","alert alert-danger")
+    }
+    mail.value=""
+  }
+
+  function addElement(name, invitaion_type, invitaion_value){
+        inviteValues = null
+        if (invitaion_type=="mail")
+          inviteValues = document.getElementById("mailValues")
+        else inviteValues = document.getElementById("groupValues")
+        
+        inviteValues.setAttribute("value",inviteValues.value+mail.value+",")
+        row = document.getElementById("row")
+
+        var div_col = document.createElement("div");
+        div_col.setAttribute("class","col-4")
+
+        var div_cardBody = document.createElement("div");
+        div_cardBody.setAttribute("class","card-body")
+
+        var img = document.createElement("img");
+        img.setAttribute("class","card-img-top")
+        img.src= img
+
+        var cardHead = document.createElement("h5");
+        cardHead.setAttribute("class","card-title")
+        cardHead.textContent = name
+
+        var cardButton = document.createElement("button");
+        cardButton.setAttribute("class","btn btn-danger")
+        
+        function remove(e){
+          div_col.remove()
+          emails = inviteValues.value
+          emails = emails.replace(e.target.id+",", "");        
+          inviteValues.setAttribute("value",emails)
+        }
+
+        cardButton.onclick = remove
+        cardButton.textContent = "remove"
+        cardButton.setAttribute("id",invitaion_value)
+
+        div_cardBody.appendChild(img)
+        div_cardBody.appendChild(cardHead)
+        div_cardBody.appendChild(cardButton)
+
+        div_col.appendChild(div_cardBody)
+
+        row.appendChild(div_col)
+  }
+</script>
