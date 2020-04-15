@@ -1,0 +1,62 @@
+        <% if @error %>
+            <div class="alert alert-danger"><%= @error %></div>
+        <% end %>
+
+<%= form_for(User.new,url: :friendships_create) do |form| %>
+    <div class="form-row m-4">
+        <div class="form-group col-md-12 row field">
+                <%= form.label(:email, "Add Your Friend:", class: "col-sm-2 mt-2 mr-0") %> 
+                <%= form.email_field(:email, class: "form-control col-sm-4", placeholder: "Email" ) %>
+                <%= form.submit("Add", class: "col-sm-2 ml-2 btn btn-warning") %>
+        </div>
+
+    </div>
+ <% end %>
+
+
+<div class="container bootstrap snippet">
+
+  <div class="header">
+    <h3 class="text-muted prj-name">
+        <span class="fa fa-users fa-2x principal-title"></span>
+        Friend zone
+    </h3>
+  </div>
+
+
+  <div class="jumbotron list-content pt-4 pb-2">
+            <ul class="list-group">
+                <div class="row">
+                    <li href="#" class="list-group-item title col-sm-12 mb-3">
+                        Your friend zone
+                    </li>
+                </div>
+
+
+
+                <div class="row pb-2">
+                    <% @user_friends.each do |friend| %>           
+                        <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
+                            <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
+                            <label class="name">
+                               <%= friend.name %>
+                            </label>
+                            <label class="pull-right">
+                                <%# <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="remove_friend/<%=friend.id%><%#" title="Delete">Unfriend</a> %>
+                                 <%= link_to "Unfriend", remove_friend_path(friend.id), class:"button is-danger",confirm: "Are you sure you want to unfriend #{friend.first_name}?", method: :delete %>
+                            </label>
+                            <div class="break"></div>
+                        </li>
+                    <% end %>   
+       
+                </div>
+        
+
+            </ul>
+  </div>
+  <%# </div>
+  </div> %>
+
+
+
+
