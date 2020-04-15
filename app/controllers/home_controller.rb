@@ -3,10 +3,4 @@ class HomeController < ApplicationController
     
   end
 
-
-
-  def addGroup
-    render "home/addGroup"
-  end
-  
 end

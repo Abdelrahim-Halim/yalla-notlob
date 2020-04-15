@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   # root 'friends#index'
   post '/friendships/create', to: 'friendships#create'
 
-  get 'add_group', to: 'home#addGroup'
+  resources :groups
+  resources :groups do
+    resource :group_users, only: [:create, :destroy]
+  end
 
 end
