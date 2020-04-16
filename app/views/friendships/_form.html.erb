@@ -2,6 +2,8 @@
             <div class="alert alert-danger"><%= @error %></div>
         <% end %>
 
+
+
 <%= form_for(User.new,url: :friendships_create) do |form| %>
     <div class="form-row m-4">
         <div class="form-group col-md-12 row field">
@@ -13,7 +15,11 @@
     </div>
  <% end %>
 
-
+<% if  flash[:notice].present? %>
+      <div class="alert alert-success">
+      <%= flash[:notice] %>
+      </div>
+<% end %>
 <div class="container bootstrap snippet">
 
   <div class="header">
@@ -39,12 +45,11 @@
                         <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
                             <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
                             <label class="name">
-                               <%= friend.name %>
+                               <%= friend.id %>
                             </label>
-                            <label class="pull-right">
-                                <%# <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="remove_friend/<%=friend.id%><%#" title="Delete">Unfriend</a> %>
-                                 <%= link_to "Unfriend", remove_friend_path(friend.id), class:"button is-danger",confirm: "Are you sure you want to unfriend #{friend.first_name}?", method: :delete %>
-                            </label>
+                            <div class="pull-right">
+                                 <%= link_to "Unfriend", friendship_path(friend.id), class:"btn btn-danger",confirm: "Are you sure you want to unfriend ", method: :delete %>
+                            </div>
                             <div class="break"></div>
                         </li>
                     <% end %>   
@@ -54,8 +59,7 @@
 
             </ul>
   </div>
-  <%# </div>
-  </div> %>
+ 
 
 
 
