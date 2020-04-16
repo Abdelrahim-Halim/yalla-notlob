@@ -1,0 +1,62 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'New Order', new_order_path, class: "btn btn-primary text-light mb-2"%>
+
+<table class="table table-bordered justify-content-center text-center align-middle">
+  <thead class="thead-dark">
+    <tr>
+      <th class="text-center">Meal</th>
+      <th class="text-center">Restaurant</th>
+      <%# <th class="text-center">Menu</th> %>
+      <th class="text-center">invited</th>
+      <th class="text-center">joined</th>
+      <th class="text-center">Status</th>
+      <th class="text-center" colspan="3">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td class='align-middle'>
+          <% if(order.order_type == "breakfast") %>
+            Breakfast
+          <% elsif(order.order_type == "lunch")%>
+            Lunch
+          <% else %>
+            Dinner
+          <% end %>
+        </td>
+        <td class='align-middle'> <%= order.resturant %></td>
+        <%# <td class='align-middle'> <img src="images/menus/<%= order.menu " width=200 /></td> %>
+        <td class='align-middle'> <%= order.invited_users.length %></td>
+        <% joined = 0 %>
+        <% order.invited_users.each do |invite| %>
+            <% if invite.invitation_status %>
+                <% joined += 1 %>
+            <% end %>
+        <% end %>
+        <td class='align-middle'> <%= joined %></td>
+        <td class='align-middle'>
+          <% if(order.status == "waiting") %>
+            Waiting
+          <% else %>
+            Finished
+          <% end %>
+        </td>
+        <td class="align-middle"><%= link_to 'View', order, class: "btn btn-primary text-light" %></td>
+          <% if(order.user_id == current_user.id) %>
+            <% if(order.status == "waiting") %>
+              <td class="align-middle">
+                  <%= form_tag( "/orders/#{order.id}/finish_order" , method: :post)%>
+                    <%= submit_tag( "Finish", class: "btn btn-success text-light")%>
+              </td>
+              <td class="align-middle"><%= link_to "Cancel", order, method: :delete, class: "btn btn-danger text-light"%></td>
+            <% else%>
+              <td class="align-middle"><%= link_to "Finish", order, method: :delete, class: "btn btn-danger text-light"%></td>
+            <% end %>
+          <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

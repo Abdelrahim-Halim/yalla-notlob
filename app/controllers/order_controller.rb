@@ -1,5 +1,6 @@
 class OrderController < ApplicationController
   def new
+    User.create(first_name:"mohamed",last_name:"salah",email:"salah@gmail.com")
     require 'json'
     @order = Order.new
     current_user = User.find(1)
@@ -48,7 +49,7 @@ class OrderController < ApplicationController
     end
 
     # create order
-    order = Order.create(user_id: current_user.id,resturant: params[:order][:resturant], order_type: params[:order][:order_type], menu: uploaded_io.original_filename, status: "waiting")
+    #order = Order.create(user_id: current_user.id,resturant: params[:order][:resturant], order_type: params[:order][:order_type], menu: uploaded_io.original_filename, status: "waiting")
 
     # invite friends
     friendsWillInvite = params[:mailValues] 
@@ -74,15 +75,45 @@ class OrderController < ApplicationController
     
     # redirect to order page
   end
+  
+  def show
+    @order = Order.find(params[:id])
+    invites = @order.invites
+    invited_ids = []
+
+    invites.each do |invite|
+        invited_ids.push(invite.user_id)
+    end
+    @invited_users=User.find(invited_ids)
+  end
+
+  def index
+    @current_user = User.find(1)
+    my_orders = current_user.orders
+    invites = current_user.invited_users
+    invited_to_orders = []
+    invites.each do |invite|
+      invited_to_orders.push(invite.order)
+    end
+
+    @orders = Order.order(:resturant)
+    
+  end
+
+  def destroy
+    @order = Order.find(params[:id])
+    @order.destroy
+    redirect_to :orders
+  end
 
   private
-    def orderParameters
-      params.require(:order).permit(:order_type, :resturant, :menu)
-    end
-    def invite(user_id, order_id)
-      # send notification 
+  def orderParameters
+    params.require(:order).permit(:order_type, :resturant, :menu, :user_id)
+  end
+  def invite(user_id, order_id)
+    # send notification 
 
-      InvitedUser.create(user_id: user_id,order_id: order_id)
-    end
-  
+    InvitedUser.create(user_id: user_id,order_id: order_id)
+  end
+
 end
