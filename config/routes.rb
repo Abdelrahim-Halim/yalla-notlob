@@ -13,8 +13,9 @@ Rails.application.routes.draw do
   post '/friendships/create', to: 'friendships#create'
 
   resources :groups
-  resources :groups do
-    resource :group_users, only: [:create, :destroy]
-  end
+  # resources :groups do
+  #   resource :users, only: [:create, :destroy]
+  # end
 
+  post '/groups/:id', to: 'groups#addFriendToGroup'
 end

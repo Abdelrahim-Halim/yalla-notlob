@@ -46,15 +46,8 @@
                         
                             <td width=40%>
                             
-                                <%# <a  href="#navigation-main" aria-label="Skip to main navigation" class="mr-2" >
-                                   <i class="fa fa-user-plus fa-lg" aria-hidden="true" style="color: blue;font-size: 1.5em;"></i>
-
-                                </a> %>
-                                 <%= link_to "", group , action: "show" , class:"fa fa-user-plus fa-lg addUser" %>
-                                <%# <a  href="#navigation-main" aria-label="Skip to main navigation" class="mr-2 ">
-                                 <i class="fa fa-trash fa-lg" aria-hidden="true" style="color: red;font-size: 1.5em;"></i>
-                                 
-                                </a> %>
+                                 <%= link_to "", group ,url: group_path(group.id), class:"fa fa-user-plus fa-lg addUser" %>
+                      
                                 <%= link_to "", group , method: :delete , class:"fa fa-trash fa-lg cancelGroup", data: { confirm: "Are you sure that you want to delete this group ?" } %>
                                
                             </td>
@@ -69,96 +62,43 @@
 
 
       <div class="col-sm-8">
-            <div class="header">
-                <h3 class="text-muted prj-name">
-                    <span class="fa fa-user fa-2x principal-title"></span>
-                    OS
-                </h3>
-            </div>
-
-
-            <div class="jumbotron list-content pt-4 pb-2">
-                <ul class="list-group">
-                <div class="row">
-            
-                <div class="row pb-2">           
-                        <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
-                            <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
-                            <label class="name">
-                                Mariana pajon
-                            </label>
-                            <label class="pull-center">
-                                <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Delete">Unfriend</a>
-                                <%# <a  class="btn btn-info  btn-xs glyphicon glyphicon glyphicon-comment" href="#" title="Send message">Join</a> %>
-                            </label>
-                            <div class="break"></div>
-                        </li>
-                        <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
-                            <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
-                            <label class="name">
-                                Mariana pajon
-                            </label>
-                            <label class="pull-right">
-                                <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Delete">Unfriend</a>
-                                <%# <a  class="btn btn-info  btn-xs glyphicon glyphicon glyphicon-comment" href="#" title="Send message">Join</a> %>
-                            </label>
-                            <div class="break"></div>
-                        </li>
-                        <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
-                            <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
-                            <label class="name">
-                                Mariana pajon
-                            </label>
-                            <label class="pull-right">
-                                <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Delete">Unfriend</a>
-                                <%# <a  class="btn btn-info  btn-xs glyphicon glyphicon glyphicon-comment" href="#" title="Send message">Join</a> %>
-                            </label>
-                            <div class="break"></div>
-                        </li>
-
-
-                        <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
-                            <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
-                            <label class="name">
-                                Mariana pajon
-                            </label>
-                            <label class="pull-right">
-                                <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Delete">Unfriend</a>
-                                <%# <a  class="btn btn-info  btn-xs glyphicon glyphicon glyphicon-comment" href="#" title="Send message">Join</a> %>
-                            </label>
-                            <div class="break"></div>
-                        </li>
-                        <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
-                            <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
-                            <label class="name">
-                                Mariana pajon
-                            </label>
-                            <label class="pull-right">
-                                <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Delete">Unfriend</a>
-                                <%# <a  class="btn btn-info  btn-xs glyphicon glyphicon glyphicon-comment" href="#" title="Send message">Join</a> %>
-                            </label>
-                            <div class="break"></div>
-                        </li>
-                        <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
-                            <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
-                            
-                            <label class="name">
-                                Mariana pajon
-                            </label>
-                            <label class="pull-right">
-                                <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Delete">Unfriend</a>
-                                <%# <a  class="btn btn-info  btn-xs glyphicon glyphicon glyphicon-comment" href="#" title="Send message">Join</a> %>
-                            </label>
-                            <div class="break"></div>
-                        </li>
-          
+                <div class="header">
+                    <h3 class="text-muted prj-name">
+                        <span class="fa fa-user fa-2x principal-title"></span>
+                    Friend zone
+                    </h3>
                 </div>
-            
 
-                </ul>
-            </div>
-            </div>
-      </div>
+
+                <div class="jumbotron list-content pt-4 pb-2">
+                    <ul class="list-group">
+                            <div class="row">
+                                <li href="#" class="list-group-item title col-sm-12 mb-3">
+                                    Your friends
+                                </li>
+                            </div>
+
+                            <div class="row pb-2">
+                                <% @user_friends.each do |friend| %>           
+                                    <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
+                                        <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
+                                        <label class="name">
+                                        <%= friend.name %>
+                                        </label>
+                                        <label class="pull-right">
+                                            
+                                            <%= link_to "Unfriend", remove_friend_path(friend.id), class:"button is-danger",confirm: "Are you sure you want to unfriend #{friend.first_name}?", method: :delete %>
+                                        </label>
+                                        <div class="break"></div>
+                                    </li>
+                                <% end %>   
+                
+                            </div>
+
+                    </ul>
+                </div>
+        </div>
+      <%# </div> %>
     </div>
  </div>
 

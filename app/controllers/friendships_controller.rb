@@ -1,18 +1,28 @@
 class FriendshipsController < ApplicationController
     def index
-        @user_friends = User.find(1).friendships    
+        @user_friends = User.find(1).friendships   
+        @friends = []
+        @user_friends.each do |fri|
+          users = User.find(fri.friendship_ids)
+          @friends.push(users)
+        end 
+     
     end
     def new
         # create new fiendships object
         @new_friend = User.new
         @user_friends = User.find(1).friendships  
          
-      end
-    
+    end
+    def show
+      @user_friends = User.find(1).friendships  
+    end    
       def create
+      
         @user_friends = User.find(1).friendships   
-       
+        
         @new_friend = User.find_by(email: params[:user][:email])
+        p @new_friend
         user = User.find(1)
         if @new_friend == nil
           @error = "user doesnot exist"
@@ -25,8 +35,12 @@ class FriendshipsController < ApplicationController
             @error = "this user already in your friends zone"
             render :new
           else
-            user.friendships << @new_friend
-            
+            p @new_friend.id
+            # user.friendships << @new_friend.id
+            @new_friend = Friendship.create(friend_a_id: 1 , friend_b_id: @new_friend.id)
+            @new_friend.save
+            flash[:notice] = 'Friend was successfully created.'
+            p @user_friends
             redirect_to :friendships
           end
         end
@@ -34,18 +48,17 @@ class FriendshipsController < ApplicationController
       end
     
       def destroy
-    
+
+        # User.find(1).friendships.destroy(User.find(params[:id]))
         # @friendship = current_user.friendships.find(params[:id])
-        @friendship = User.find(1).friendships.find(params[:id])
-        @friendship.destroy
-        flash[:notice] = "Removed friendship."
+        # @friendship =Friendship.find(friend_a_id: 1, friend_b_id: params[:id])
+        # p @friendship
+        # @friendship.destroy
+
+        if User.find(1).friendships.delete(params[:id])
+           flash[:notice] = "Removed friendship."
+        end
         redirect_to :friendships
       end
 end
 
-# @friendship = current_user.friendships.build(:friend_id => @friend.id)
-# if @friendship.save
-#   @res = { error: false, message: @friend.name+" added to your friend list" }
-# else
-#   @res = { error: true, message: "Unable to add "+@friend.email+" to your friend list" }
-# end
