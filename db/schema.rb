@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 2020_04_12_111220) do
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "resturant"
     t.string "menu"
-    t.string "type"
+    t.string "order_type"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
