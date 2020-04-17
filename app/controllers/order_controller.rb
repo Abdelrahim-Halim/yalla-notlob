@@ -100,10 +100,17 @@ class OrderController < ApplicationController
     
   end
 
+  def finish
+    @order = Order.find(params[:id])
+    @order.status=1
+    @order.save
+    redirect_to :order
+  end
+
   def destroy
     @order = Order.find(params[:id])
     @order.destroy
-    redirect_to :orders
+    redirect_to :order
   end
 
   private
