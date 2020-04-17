@@ -32,15 +32,15 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password",class: "form-control" %>
   </div>
    <br>
-   <div>
-    <%= f.label :image do %>
+   <div >
+    <%= f.label :image do  %>
     <%= f.file_field :image %> 
     <%= f.hidden_field :image_cache %>
     <%end%>
    </div>
   <div class="actions">
-    <%= f.submit "Sign up",class:"btn btn-primary btn-lg " %>
+    <%= f.submit "Sign up",class: "btn" %>
   </div>
-<div class="text-center">Already have an account? <%= render "devise/shared/links" %></div>
+<div class="text-center">Already have an account? <%= link_to 'Log in' , new_user_session_path %></div>
 <% end %>
 </div>
