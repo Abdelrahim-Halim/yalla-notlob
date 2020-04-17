@@ -1,8 +1,8 @@
-.form-control {
+ .form-control {
     /* height: 40px;
     box-shadow: none;
     color: #969fa4; */
-    width: 100%;
+    /* width: 60%; */
     height: 50px;
     background: #F5FBFF;
     padding-left: 20px;
@@ -12,7 +12,7 @@
     border: 1px solid #E8E8E8;
     border-radius: 30px
     
-}
+} 
 .label{
     font-family: 'Raleway', sans-serif;
 
@@ -34,10 +34,46 @@
     border-radius: 30px;
    
 }
+
 .container form a:hover {
     text-decoration: underline;
 } 
 
 .container a:hover {
     text-decoration: none;
+}
+.btn{
+    height: 40px;
+    font-size: 16px;
+    color: #fff;
+    background: #F0542C;
+    border-radius: 30px;
+    font-weight: 600;
+   
+}
+.submit{
+padding-left: 20%;
+}
+.fld{
+    padding-left: 35%;
+}
+
+.btn1{
+   
+ width: 100px;
+  height: 40px;
+  font-size:16px;
+  size: 150%;
+  height: 40px;
+  border: none;
+  color: #fff;
+  box-shadow:none;
+  cursor: pointer;
+  background: #F0542C;
+  border-radius: 30px;
+bottom: 5px;
+    right: 5px;
+    font-weight: 600;
+ 
+
 }

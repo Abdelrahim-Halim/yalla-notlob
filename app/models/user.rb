@@ -41,7 +41,5 @@ class User < ApplicationRecord
   # end
   attr_accessor :first_name ,:last_name, :email, :password,  :image, :image_cache, :remove_image
 
-  validates_presence_of   :image
-  validates_integrity_of  :image
-  validates_processing_of :image
+ 
 end
