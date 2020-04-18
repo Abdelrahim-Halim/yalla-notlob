@@ -23,9 +23,7 @@ class User < ApplicationRecord
   # has_many :friend_as, through: :friendships_as_friend_b
   # has_many :friend_bs, through: :friendships_as_friend_a
 
-  # has_many :users, class_name: 'Friendship', foreign_key: 'friend_b_id'
 
-  # has_many :friendships, class_name: 'Friendship', foreign_key: 'friend_a_id'
 
     #frinds relationship
     has_and_belongs_to_many :friendships,

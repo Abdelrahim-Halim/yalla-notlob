@@ -36,7 +36,7 @@ class FriendshipsController < ApplicationController
             render :new
           else
             p @new_friend.id
-            # user.friendships << @new_friend.id
+            
             @new_friend = Friendship.create(friend_a_id: 1 , friend_b_id: @new_friend.id)
             @new_friend.save
             flash[:notice] = 'Friend was successfully created.'
