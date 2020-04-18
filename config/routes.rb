@@ -18,4 +18,7 @@ Rails.application.routes.draw do
   # end
 
   post '/groups/:id', to: 'groups#addFriendToGroup'
+  delete 'group_user/:id', to: 'groups#removeFriendFromGroup'
+
+  # get 'add_group/:id', to: 'groups#addGroup',as: 'group'
 end

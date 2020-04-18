@@ -20,7 +20,7 @@
       <%= flash[:notice] %>
       </div>
 <% end %>
-<div class="container bootstrap snippet">
+<div class="container">
 
   <div class="header">
     <h3 class="text-muted prj-name">
@@ -42,16 +42,19 @@
 
                 <div class="row pb-2">
                     <% @user_friends.each do |friend| %>           
-                        <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
-                            <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
-                            <label class="name">
-                               <%= friend.id %>
-                            </label>
-                            <div class="pull-right">
-                                 <%= link_to "Unfriend", friendship_path(friend.id), class:"btn btn-danger",confirm: "Are you sure you want to unfriend ", method: :delete %>
+                        <li href="#" class="list-group-item text-left col-md-4  mt-auto mr-auto ml-auto mb-3 ">
+                         <div class="shadow  bg-white ">
+                         <div class="media">
+                            <img class="mr-3 fimg" src="https://bootdey.com/img/Content/user_2.jpg" alt="Generic placeholder image">
+                            <div class="media-body">
+                                <h5 class="mt-0"><%=friend.id%></h5>
+                                <%= link_to "Unfriend", friendship_path(friend.id), class: "btn btn-danger btn-group ml-0 fbtn",confirm: "Are you sure you want to unfriend ", method: :delete %>
+                                <%# <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> %>
                             </div>
-                            <div class="break"></div>
+                        </div>
+                        </div>
                         </li>
+                        
                     <% end %>   
        
                 </div>

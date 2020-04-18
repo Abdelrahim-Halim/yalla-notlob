@@ -1,6 +1,11 @@
 <% if flash[:notice].present? %>
     <div class ="alert alert-success">
-        <% flash[:notice] %>
+        <%= flash[:notice] %>
+    </div>
+<% end %>
+<% if flash[:error].present? %>
+    <div class ="alert alert-warning">
+        <%= flash[:error] %>
     </div>
 <% end %>
 <div class="row">
@@ -19,13 +24,13 @@
                                     
                         
                                     <%if @group.id %>  
-                                        <%= form_for(User.new,url: group_path(@group.id),method: ) do |form| %>
+                                        <%= form_for(User.new,url: group_path(@group),method: "post") do |form| %>
 
-                                                             <div class="field">
+                                                <div class="field">
                                                     <%= form.label :email, "Add Your Friend:" %>
                                                     <%= form.text_field :email, class: "form-control ", placeholder: "Email.." %>
                                                     <%= form.submit("Add Friend", class: " btn btn-warning")  %>
-                                                    </div>
+                                                 </div>
                                            
                                         <% end %>
                                     <% end %>
@@ -39,11 +44,13 @@
                                     <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
                                         <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
                                         <label class="name">
-                                        <%= user.email %>
+                                        <%= user.user_id %>
                                         </label>
                                         <label class="pull-right">
                                             
-                                            <%= link_to "Delete", group_users_path(user, :group_id => @group.id), class:"button is-danger",confirm: "Are you sure you want delete this friend from group?", method: :delete %>
+                                            <%# <%= link_to "Remove", group_users_path(user.id), class:"button is-danger",confirm: "Are you sure you want delete this friend from group?", method: :delete  %>
+                                            <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/group_user/<%=user.id%>">remove</a>
+                                        
                                         </label>
                                         <div class="break"></div>
                                     </li>
