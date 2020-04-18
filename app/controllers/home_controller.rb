@@ -10,7 +10,7 @@ class HomeController < ApplicationController
 
       # puts "All"
       # puts @all.inspect
-      # @allmyFriends = User.find(current_user.id).friends
+      # @allmyFriends = current_user.friends
     else
       puts "sign_in"
       # redirect_to "/users/sign_in"

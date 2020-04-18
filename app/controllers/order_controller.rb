@@ -74,11 +74,12 @@ class OrderController < ApplicationController
     end
     
     # redirect to order page
+    redirect_to :order_index
   end
   
   def show
     @order = Order.find(params[:id])
-    invites = @order.invites
+    invites = @order.invited_users
     invited_ids = []
 
     invites.each do |invite|
@@ -89,33 +90,40 @@ class OrderController < ApplicationController
 
   def index
     @current_user = User.find(1)
-    my_orders = current_user.orders
+    my_orders = current_user.orders.order(:created_at)
     invites = current_user.invited_users
     invited_to_orders = []
     invites.each do |invite|
       invited_to_orders.push(invite.order)
     end
 
-    @orders = Order.order(:resturant)
+    @orders = my_orders + invited_to_orders
     
   end
+  # @orders = Order.where(:created_at < now()-7)
+  # final_orders = []
+  # @orders.each do |order|
+  #   if User.find(order.user_id) in current_user.friends
+  #     final_orders.push(order)
+  #   end
+  # end
 
   def finish
     @order = Order.find(params[:id])
-    @order.status=1
+    @order.status="finished"
     @order.save
-    redirect_to :order
+    redirect_to :order_index
   end
 
   def destroy
     @order = Order.find(params[:id])
     @order.destroy
-    redirect_to :order
+    redirect_to :order_index
   end
 
   private
   def orderParameters
-    params.require(:order).permit(:order_type, :resturant, :menu, :user_id)
+    params.require(:order).permit(:order_type, :resturant, :menu, :user_id, :id)
   end
   def invite(user_id, order_id)
     # send notification 
