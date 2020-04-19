@@ -6276,3 +6276,35 @@ h6 {
 
 /*# sourceMappingURL=style.css.map */
 
+.fimg{
+  width: 40% !important;
+  height: 70% !important;
+}
+
+.fbtn{
+  font-size: 15px;
+  font-weight: bold;
+}
+.fname{
+  
+  font-weight: bold;
+  
+}
+
+.gname{
+  font-size: 20px;
+  font-weight: bold;
+  
+}
+
+.ghover:hover{
+  color: #eeb42d;
+}
+
+.label{
+  font-size: 18px;
+}
+
+.email{
+  color: #3381ca;
+}

@@ -1,11 +1,9 @@
 class GroupsController < ApplicationController
-    # before_action :set_params, only: [:show, :edit, :update, :destroy]
+
     def index
-        @user_friends = User.find(1).friendships   
+         @user_friends = User.find(1).friendships   
         @group = Group.new
-        # @group = Group.where(user_id: current_user.id)
-        @group = Group.where(user_id: User.find(1))
-        # @groupUsers = Group.where(user_id: User.find(1),group_id: params[:id])
+        @group = Group.where(user_id: User.find(1)).all
     end
 
     def new
@@ -14,8 +12,6 @@ class GroupsController < ApplicationController
 
     def create
         @new_group = Group.new()
-        # @new_group.user_id = current_user.id
-        
         @new_group.user_id = User.find(1).id
         @new_group.name = params[:group][:name]
         if Group.find_by(name: params[:group][:name] , user_id: User.find(1).id)
@@ -35,10 +31,11 @@ class GroupsController < ApplicationController
     end
 
     def show
-        @group = Group.find(params[:id])
-
-
-
+        @group = Group.find(params[:id])        
+        @groupUsers = @group.users.all
+        @groupUsers.each do |fri|
+            p fri.first_name
+        end 
     end
 
     def destroy
@@ -53,78 +50,43 @@ class GroupsController < ApplicationController
         user = User.find(1) #current_user
         @new_friend = user.friendships.find_by(email: params[:user][:email])
         group = Group.find(params[:id])
-        # @group_user = GroupFriend.find_by(user_id: @new_friend.id ,group_id: params[:id])
-        p @new_friend
+        @groupUsers = group.users.all
+        p @new_friend 
         if user.friendships.include? @new_friend
-          @group_user = GroupFriend.find_by(user_id: @new_friend.id ,group_id: params[:id]) 
-          if @group_user.nil?
-            @group_user =GroupFriend.create(user_id: @new_friend.id , group_id: params[:id])
-            @group_user.save
-            p @group_friends
+          if @groupUsers.nil?
+            group.users << @new_friend
+            p group.users.all
             flash[:notice] = "user is added to group sucessfully"
             redirect_to group_path
-          else
-             flash[:error] = "user already in the group"
-             redirect_to group_path
-          end
+
+          else 
+            @group_user = group.users.find_by(id: @new_friend.id)  
+            if @group_user.nil?
+                group.users << @new_friend
+                p group.users.all
+                flash[:notice] = "user is added to group sucessfully"
+                redirect_to group_path
+            else
+                flash[:error] = "user already in the group"
+                redirect_to group_path
+            end
+        end
         else
-            flash[:error] = "this user doesn't exist"
+            flash[:error] = "this user doesn't exist in your friendships"
             redirect_to :group
         end
-
-        # @new_friend = Friendship.create(friend_a_id: 1 , friend_b_id: @new_friend.id)
-        # @new_friend.save
-        # group = Group.find(params[:gid])
-        # @group_user = group.group_friends.find_by(user_id: params[:uid],group_id: params[:gid])
-
-        # if @new_user.exist?
-        #     if @group_user.nil?
-        #         @new_friend1 = Group_friend.create(user_id: params[:uid] , group_id: params[:gid])
-                
-        #         if @new_friend1.save
-        #            flash[:notice] = "Your friend is added successfully "
-        #            redirect_to :group
-        #         else
-        #         #    flash[:notice] = @group.errors
-        #            redirect_to :group
-        #         end
-        #     else
-        #        flash[:error] = "user already in the group"
-        #        redirect_to :group
-        #     end    
- 
-        # else
-        #     flash[:error] = "this user doesn't exist"
-        #     redirect_to :group
-        # end
 
     end
 
 
-    # @new_friend = Friendship.create(friend_a_id: 1 , friend_b_id: @new_friend.id)
-    # @new_friend.save
-
     def removeFriendFromGroup
-
-        @group_user =  GroupFriend.find(params[:id])
-        @group_user.destroy
+        group = Group.find(params[:gid])
+        @group_user =  group.users.delete(params[:uid])
+        # @group_user.destroy
         flash[:notice] = "Removed friend from this group."
         # redirect_to group_path(params[:group_id])
         redirect_to groups_path
     end
-    
-# end
 
-
-
-    # private
-
-    # def set_params
-    #   @group = Group.find(params[:id])
-    # end
 
 end
-
-# @group_user = GroupUser.find(params[:id])
-# @group_user.destroy
-# redirect_to group_path(params[:group_id])
