@@ -90,7 +90,7 @@ class OrderController < ApplicationController
 
   def index
     @current_user = User.find(1)
-    my_orders = current_user.orders.order(:created_at)
+    my_orders = current_user.orders.order(created_at: :desc)
     invites = current_user.invited_users
     invited_to_orders = []
     invites.each do |invite|
