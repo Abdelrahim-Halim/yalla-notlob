@@ -35,19 +35,19 @@
 			    </div>
 			    <div class="panel-body">
 			        <div class="row">
-					     <%# <% @all.each do |gorder| %>
-						   <%# <% gorder.each do |order| %> %>
+					      <% @all.each do |gorder| %>
+						   <% gorder.each do |order| %>
 						     <b>
-						      <%# <% @allmyFriends.each do |user|%> %>
-						         <%# <%= user.name %> %>
-						       <%# <%end%> %>
-						       <%# has created an order for <% if order.meal == 0 %>BreakFast %>
-						       <%# <% else %>Lunch  %>
-					           <%# <% end %>from 
-                               <%# <%= order.restaurant <br>  %> %> %>
-					    	<%# <% end %> </b> %>
+						      <% @allmyFriends.each do |user|%>
+						         <%= user.name %>
+						       <%end%>
+						       has created an order for <% if order.order_type == "breakfast" %>BreakFast
+							   <% elsif order.order_type == "lunch" %>Lunch 
+						       <% else %>Dinner
+					           <% end %>from <%= order.restaurant %> <br> 
+					    	<% end %> </b>
 						     <br>
-					      <%# <% end %>  %>
+					      <% end %> 
                           <hr>
 			            </div>
 			        </div>
