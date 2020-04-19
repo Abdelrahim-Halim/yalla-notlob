@@ -13,18 +13,30 @@ class User < ApplicationRecord
   has_many :user_activities
   has_many :group_friends
 
-  has_many :friendships_as_friend_a, 
-      foreign_key: :friend_a_id, 
-      class_name: :Friendship
-  has_many :friendships_as_friend_b, 
-      foreign_key: :friend_b_id, 
-      class_name: :Friendship
-  has_many :friend_as, through: :friendships_as_friend_b
-  has_many :friend_bs, through: :friendships_as_friend_a
+  # has_many :friendships_as_friend_a, 
+  #     foreign_key: :friend_a_id, 
+  #     class_name: :Friendship
+  # has_many :friendships_as_friend_b, 
+  #     foreign_key: :friend_b_id, 
+  #     class_name: :Friendship,
+  #     dependent: :destroy
+  # has_many :friend_as, through: :friendships_as_friend_b
+  # has_many :friend_bs, through: :friendships_as_friend_a
 
-  def friendships
-    self.friendships_as_friend_a
-  end
+
+
+    #frinds relationship
+    has_and_belongs_to_many :friendships,
+    :class_name => "User",
+    :join_table => "friendships",
+    :foreign_key => "friend_a_id",
+    :association_foreign_key => "friend_b_id",
+    :before_add => :validates_friend,
+    dependent: :destroy
+
+  # def friendships
+  #   self.friendships_as_friend_a + self.friendships_as_friend_b
+  # end
   attr_accessor :first_name ,:last_name, :email, :password,  :image, :image_cache, :remove_image
 
   validates_presence_of   :image

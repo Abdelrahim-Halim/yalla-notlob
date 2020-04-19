@@ -5,5 +5,22 @@ Rails.application.routes.draw do
   get 'order/show'
   post 'order/:id/finish_order', to: 'order#finish', as: 'finish_order'
   resources :order
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+ 
+  # get '/add_friend/:id' to: 'home#addFriend'
+  # get 'add_friend', to: 'home#addFriend'
+  # post 'home/new_friend', to: 'home#newFriend'
+  # delete 'remove_friend/:id',to: 'home#unfriend'
+  resources :friendships
+  # root 'friends#index'
+  post '/friendships/create', to: 'friendships#create'
+
+  resources :groups
+  # resources :groups do
+  #   resource :users, only: [:create, :destroy]
+  # end
+
+  post '/groups/:id', to: 'groups#addFriendToGroup'
+  delete 'group_user/:id', to: 'groups#removeFriendFromGroup'
+
+  # get 'add_group/:id', to: 'groups#addGroup',as: 'group'
 end

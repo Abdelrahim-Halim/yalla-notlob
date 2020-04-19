@@ -39,7 +39,7 @@
                 <nav>
                   <ul id="navigation">
                     <li><a class="active" href="/home/index">home</a></li>
-                    <li><a href="#">Friends</a></li>
+                    <li><a href="/home/add_friend">Friends</a></li>
                     <li><a href="#">Groups</a></li>
                     <li><a href="#">Orders</a></li>
                     <li><a href="#">blog <i class="ti-angle-down"></i></a>
@@ -139,9 +139,13 @@
     </div>
   </div>
   <!-- slider_area_end -->
-    <%= render 'layouts/alerts' %>
+  <div class = "container">
+   <%= render 'layouts/alerts' %>
+     <%= yield %> 
+  </div>
+    
 
-  <%= yield %> 
+
 
   <footer class="footer">
     <div class="footer_top">

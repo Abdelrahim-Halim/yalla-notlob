@@ -1,0 +1,72 @@
+<% if flash[:notice].present? %>
+    <div class ="alert alert-success">
+        <%= flash[:notice] %>
+    </div>
+<% end %>
+<% if flash[:error].present? %>
+    <div class ="alert alert-warning">
+        <%= flash[:error] %>
+    </div>
+<% end %>
+<div class="row">
+ <div class="col-sm-8">
+                <div class="header">
+                    <h3 class="text-muted prj-name">
+                        <span class="fa fa-user fa-2x principal-title"></span>
+                     <%= @group.name %>
+                    </h3>
+                </div>
+            <div class="jumbotron list-content pt-4 pb-2">
+                    
+                        <ul class="list-group">
+                                <div class="row">
+                                
+                                    
+                        
+                                    <%if @group.id %>  
+                                        <%= form_for(User.new,url: group_path(@group),method: "post") do |form| %>
+
+                                                <div class="field">
+                                                    <%= form.label :email, "Add Your Friend:" %>
+                                                    <%= form.text_field :email, class: "form-control ", placeholder: "Email.." %>
+                                                    <%= form.submit("Add Friend", class: " btn btn-warning")  %>
+                                                 </div>
+                                           
+                                        <% end %>
+                                    <% end %>
+ 
+                                    </div>
+
+
+
+                            <div class="row pb-2">
+                                <% @group.group_friends.each do |user| %>          
+                                    <li href="#" class="list-group-item text-left col-sm-3.5 shadow mt-auto mr-auto ml-auto mb-3">
+                                        <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
+                                        <label class="name">
+                                        <%= user.user_id %>
+                                        </label>
+                                        <label class="pull-right">
+                                            
+                                            <%# <%= link_to "Remove", group_users_path(user.id), class:"button is-danger",confirm: "Are you sure you want delete this friend from group?", method: :delete  %>
+                                            <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/group_user/<%=user.id%>">remove</a>
+                                        
+                                        </label>
+                                        <div class="break"></div>
+                                    </li>
+                                <% end %>   
+                
+                            </div>
+                    
+
+                        </ul>
+            </div>
+
+</div>
+</div>
+
+
+
+
+
+   
