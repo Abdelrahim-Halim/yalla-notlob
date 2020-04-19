@@ -1,0 +1,61 @@
+<div class="container">
+
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Item</th>
+                <th scope="col">quntity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Comment</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%if @orderDetails.empty?%>
+            <tr>
+                <td colspan="7" style="text-align:center;"> ........... No orders yet ........... </td>
+            </tr>
+            <%else%>
+            <%i = 0 %>
+            <% @orderDetails.each do |detail| %>
+            <tr>
+                <td><%= i = i+ 1 %></td>
+                <td><%= detail.user.id %></td>
+                <% puts 'user: ' %>
+                <% puts detail.user %>
+                <td><%= detail.item %></td>
+                <td><%= detail.quntity %></td>
+                <td><%= detail.price %></td>
+                <td><%= detail.comment %></td>
+                <td>
+                    <% if detail.user.id == current_user.id  %>
+                    <%= link_to "delete", "/items/#{detail.id}", method: :delete , class:"btn btn-danger",data: { confirm: 'Are you sure?'} %>
+                    <%else%>
+                    ..........
+                    <% end %>
+                </td>
+            </tr>
+            <%end%>
+
+            <% end %>
+        </tbody>
+    </table>
+
+
+<%# order details form %>
+<div class="well">
+
+    <%= form_with(url: "/items",local:true, method: "post", class: "form-inline") do |f|  %>
+        <%= hidden_field_tag(:order_id, @order.id) %>
+        <%= f.text_field(:item, class:"form-control" , placeholder:"item...." ) %>
+        <%= f.number_field :quntity, class: "form-control", placeholder: "quntity",min: 0, step: 1  %>
+        <%= f.number_field :price, class: "form-control", placeholder: "price",min: 0, step: 0.5  %>
+        <%= f.text_field(:comment, class:"form-control" , placeholder:"comment...." ) %>
+        <%= f.submit( 'add', class:"btn btn-info")  %>
+    <% end %>
+    
+ </div>
+
+</div>
