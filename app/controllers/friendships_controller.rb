@@ -1,6 +1,7 @@
 class FriendshipsController < ApplicationController
     def index
-        @user_friends = User.find(1).friendships   
+        @user_friends = User.find(1).friendships 
+        # @friend_name = User.find(@user_friends[1].id)
         @friends = []
         @user_friends.each do |fri|
           users = User.find(fri.friendship_ids)
