@@ -1,61 +1,65 @@
 <div class="container">
 
-    <table class="table">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Item</th>
-                <th scope="col">quntity</th>
-                <th scope="col">Price</th>
-                <th scope="col">Comment</th>
-                <th scope="col">Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            <%if @orderDetails.empty?%>
-            <tr>
-                <td colspan="7" style="text-align:center;"> ........... No orders yet ........... </td>
-            </tr>
-            <%else%>
-            <%i = 0 %>
-            <% @orderDetails.each do |detail| %>
-            <tr>
-                <td><%= i = i+ 1 %></td>
-                <td><%= detail.user.id %></td>
-                <% puts 'user: ' %>
-                <% puts detail.user %>
-                <td><%= detail.item %></td>
-                <td><%= detail.quntity %></td>
-                <td><%= detail.price %></td>
-                <td><%= detail.comment %></td>
-                <td>
-                    <% if detail.user.id == current_user.id  %>
-                    <%= link_to "delete", "/items/#{detail.id}", method: :delete , class:"btn btn-danger",data: { confirm: 'Are you sure?'} %>
-                    <%else%>
-                    ..........
-                    <% end %>
-                </td>
-            </tr>
-            <%end%>
+    <div class="row">
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" style="text-align: center; color: #f05431">#</th>
+                    <th scope="col" style="text-align: center; color: #f05431">Name</th>
+                    <th scope="col" style="text-align: center; color: #f05431">Item</th>
+                    <th scope="col" style="text-align: center; color: #f05431">Quntity</th>
+                    <th scope="col" style="text-align: center; color: #f05431">Price</th>
+                    <th scope="col" style="text-align: center; color: #f05431">Comment</th>
+                    <th scope="col" style="text-align: center; color: #f05431">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%if @orderDetails.empty?%>
+                <tr>
+                    <td colspan="7" style="text-align:center;"> ........... No orders yet ........... </td>
+                </tr>
+                <%else%>
+                <%i = 0 %>
+                <% @orderDetails.each do |detail| %>
+                <tr>
+                    <td style="text-align: center;"><%= i = i+ 1 %></td>
+                    <td style="text-align: center;"><%= detail.user.first_name%> <%= detail.user.last_name %></td>
+                    <% puts 'user: ' %>
+                    <% puts detail.user.first_name %>
+                    <td style="text-align: center;"><%= detail.item %></td>
+                    <td style="text-align: center;"><%= detail.quntity %></td>
+                    <td style="text-align: center;"><%= detail.price %> L.E</td>
+                    <td style="text-align: center;"><%= detail.comment %></td>
+                    <td style="text-align: center;">
+                        <% if detail.user.id == current_user.id  %>
+                        <%= link_to "delete", "/items/#{detail.id}", method: :delete , class:"btn btn-danger m-0",data: { confirm: 'Are you sure?'} %>
+                        <%else%>
+                        ..........
+                        <% end %>
+                    </td>
+                </tr>
+                <%end%>
 
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+
+    <%# order details form %>
+    <div class="container">
+        <div class="row">
+
+            <%= form_with(url: "/items",local:true, method: "post", class: "form-inline col-12") do |f|  %>
+            <%= hidden_field_tag(:order_id, @order.id) %>
+            <%= f.text_field(:item, class:"form-control mx-3 mb-5 col-3", required: true , placeholder:"Item name" ) %>
+            <%= f.number_field :quntity, class: "form-control mx-3 mb-5 col-1", required: true, placeholder: "Quntity",min: 0, step: 1  %>
+            <%= f.number_field :price, class: "form-control mx-3 mb-5 col-1", required: true, placeholder: "Price",min: 0, step: 0.5  %>
+            <%= f.text_field(:comment, class:"form-control mx-3 mb-5 col-3" , placeholder:"Comment...." ) %>
+            <%= f.submit( 'add', class:"btn btn-success mx-3 mb-5 col")  %>
             <% end %>
-        </tbody>
-    </table>
 
-
-<%# order details form %>
-<div class="well">
-
-    <%= form_with(url: "/items",local:true, method: "post", class: "form-inline") do |f|  %>
-        <%= hidden_field_tag(:order_id, @order.id) %>
-        <%= f.text_field(:item, class:"form-control" , placeholder:"item...." ) %>
-        <%= f.number_field :quntity, class: "form-control", placeholder: "quntity",min: 0, step: 1  %>
-        <%= f.number_field :price, class: "form-control", placeholder: "price",min: 0, step: 0.5  %>
-        <%= f.text_field(:comment, class:"form-control" , placeholder:"comment...." ) %>
-        <%= f.submit( 'add', class:"btn btn-info")  %>
-    <% end %>
-    
- </div>
+        </div>
+    </div>
 
 </div>
