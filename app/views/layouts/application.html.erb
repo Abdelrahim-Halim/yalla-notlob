@@ -87,7 +87,13 @@
                   </ul>
                 </div>
                 <div class="book_btn d-none d-xl-block">
+                   <% if current_user %>
                   <a      <%=  link_to  "logout", destroy_user_session_path, method: :delete %> > </a>
+                    
+                  <%else%>
+                    <a  <%= link_to 'Log in' , new_user_session_path %> > </a>
+
+                      <%end%>
                 </div>
               </div>
             </div>
@@ -261,7 +267,12 @@
   <script src="/js/jquery.validate.min.js"></script>
   <script src="/js/mail-script.js"></script>
 
+<<<<<<< HEAD
   <script src="/js/main.js"></script>
+=======
+  <script src="../js/main.js"></script>
+  
+>>>>>>> 128e8f9d1a6830f212e5fa14182ecef0c25dc37c
 </body>
 
 </html>

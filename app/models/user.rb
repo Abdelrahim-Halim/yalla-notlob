@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :groups
 
 
+<<<<<<< HEAD
   # has_many :friendships_as_friend_a, 
   #     foreign_key: :friend_a_id, 
   #     class_name: :Friendship
@@ -41,8 +42,12 @@ class User < ApplicationRecord
   # end
   
 #  attr_accessor :first_name ,:last_name, :email, :password,  :image, :image_cache, :remove_image
+=======
+  def friendships
+    self.friendships_as_friend_a
+  end
+  # attr_accessor :first_name ,:last_name, :email, :password,  :image, :image_cache, :remove_image
+>>>>>>> 128e8f9d1a6830f212e5fa14182ecef0c25dc37c
 
-  validates_presence_of   :image
-  validates_integrity_of  :image
-  validates_processing_of :image
+ 
 end
