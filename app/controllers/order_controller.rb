@@ -109,6 +109,7 @@ class OrderController < ApplicationController
   # end
 
   def finish
+    puts "hello world"
     @order = Order.find(params[:id])
     @order.status="finished"
     @order.save

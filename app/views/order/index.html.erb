@@ -49,7 +49,9 @@
             <% if(order.status == "waiting") %>
               <td class="align-middle">
                   <%= form_tag( "/order/#{order.id}/finish_order" , method: :post)%>
+                     <%= hidden_field_tag :authenticity_token, form_authenticity_token %> 
                     <%= submit_tag( "Finish", class: "btn btn-success text-light")%>
+
               </td>
               <td class="align-middle"><%= link_to "Cancel", order, method: :delete, class: "btn btn-danger text-light"%></td>
            <% end %>
