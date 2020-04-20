@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @current_user = User.find(1)
+    # @current_user = User.find(1)
     if current_user
       @orders = Order.all.where(user_id: current_user.id).order(created_at: :desc).limit(5)
       @all = []

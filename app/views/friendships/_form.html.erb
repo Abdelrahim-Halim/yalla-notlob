@@ -25,7 +25,7 @@
   <div class="header">
     <h3 class="text-muted prj-name">
         <span class="fa fa-users fa-2x principal-title"></span>
-        Friend zone
+        <span class="fname">Friend zone</span>
     </h3>
   </div>
 
@@ -43,15 +43,15 @@
                 <div class="row pb-2">
                     <% @user_friends.each do |friend| %>           
                         <li href="#" class="list-group-item text-left col-md-4  mt-auto mr-auto ml-auto mb-3 ">
-                         <div class="shadow  bg-white ">
                          <div class="media">
-                            <img class="mr-3 fimg" src="https://bootdey.com/img/Content/user_2.jpg" alt="Generic placeholder image">
-                            <div class="media-body">
-                                <h5 class="mt-0"><%=friend.id%></h5>
-                                <%= link_to "Unfriend", friendship_path(friend.id), class: "btn btn-danger btn-group ml-0 fbtn",confirm: "Are you sure you want to unfriend ", method: :delete %>
-                                <%# <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> %>
+                            <img class="mr-2 fimg" src=<%= friend.image %>  alt="Generic placeholder image">
+                        
+                            <div class="media-body mbody mt-2 ml-0">
+                                 <h5 class="mt-0 fname"><%=friend.first_name%>  <%=friend.last_name%></h5>
+                                 <a href="#" class="email"><%=friend.email%></a>
+                                <%= link_to "Unfriend", friendship_path(friend.id), class: "btn btn-warning  ml-0 mt-2 fbtn",confirm: "Are you sure you want to unfriend ", method: :delete %>
                             </div>
-                        </div>
+                        
                         </div>
                         </li>
                         

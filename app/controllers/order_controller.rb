@@ -3,7 +3,7 @@ class OrderController < ApplicationController
     User.create(first_name:"mohamed",last_name:"salah",email:"salah@gmail.com")
     require 'json'
     @order = Order.new
-    current_user = User.find(1)
+    # current_user = User.find(1)
 
     # get all friends
     friends = current_user.friendships()
@@ -34,7 +34,7 @@ class OrderController < ApplicationController
   end
   
   def create
-    current_user = User.find(1)
+    # current_user = User.find(1)
     puts params
     @order = Order.new(orderParameters)
     @order.user_id = current_user.id
@@ -89,7 +89,7 @@ class OrderController < ApplicationController
   end
 
   def index
-    @current_user = User.find(1)
+    # @current_user = User.find(1)
     my_orders = current_user.orders.order(created_at: :desc)
     invites = current_user.invited_users
     invited_to_orders = []
