@@ -1,0 +1,107 @@
+
+    <% if flash[:error].present? %>
+            <div class ="alert alert-danger">
+                <%= flash[:error] %>
+            </div>
+    <% end %>
+
+<%= form_for(Group.new,url: groups_path, method: "post") do |form| %>
+    <div class="form-row m-4">
+        <div class="form-group col-md-12 row">
+                <%= form.label("Add New Group:", class: "col-sm-2 mt-2 mr-0 label") %> 
+                <%= form.text_field(:name, class: "form-control col-sm-4", placeholder: "Add Group..." ) %>
+                <%= form.submit("Add", class: "col-sm-2 ml-2 btn btn-warning valid  fbtn") %>
+        </div>
+    
+
+    </div>
+<% end %>
+
+<% if  flash[:notice].present? %>
+      <div class="alert alert-success">
+      <%= flash[:notice] %>
+      </div>
+<% end %>
+
+<div class="container bootstrap snippet">
+ 
+   <div class="row">
+
+
+      <div class="col-sm-3">
+            <div class="header">
+                <h3 class="text-muted prj-name">
+                    <span class="fa fa-users fa-2x principal-title"></span>
+                    <span class="fname">Groups </span>
+                </h3>
+            </div>
+
+
+            <div class="jumbotron list-content p-2">
+                <div class="table-responsive">
+                <table class="table">
+                   <%  @group.each do |group| %>
+                       <tr>
+                            <td width=60%><%= link_to group.name , group , action: "show" ,method: :get, class: "gname ghover" %></td>
+                        
+                            <td width=40%>
+                            
+                                 <%= link_to "", group, method: :get, url: group_path(group.id), class:"fa fa-user-plus fa-lg addUser"  %>
+                      
+                                <%= link_to "", group , method: :delete , class:"fa fa-trash fa-lg cancelGroup", data: { confirm: "Are you sure that you want to delete this group ?" } %>
+                               
+                            </td>
+                          
+                       </tr>
+                    <% end %>    
+                </table>
+                </div>
+            </div>
+            
+      </div>
+
+
+      <div class="col-sm-8">
+                <div class="header">
+                    <h3 class="text-muted prj-name">
+                        <span class="fa fa-user fa-2x principal-title"></span>
+                        <span class="fname">Friend zone</span>
+                    </h3>
+                </div>
+
+
+                <div class="jumbotron list-content pt-4 pb-2">
+                    <ul class="list-group">
+                            <div class="row">
+                                <li href="#" class="list-group-item title col-sm-12 mb-3">
+                                    Your friends
+                                </li>
+                            </div>
+
+                    <div class="row pb-2">
+                     <% @user_friends.each do |friend| %>           
+                        <li href="#" class="list-group-item text-left col-md-4 mt-auto mr-auto ml-auto mb-3 ">
+                         <div class="media" style="width: 250px;">
+                            <img class="mr-2 fimg" src=<%= friend.image %>   alt="Generic placeholder image">
+                            <div class="media-body mbody mt-2">
+                                <h5 class="mt-0 fname"><%=friend.first_name%>  <%=friend.last_name%></h5>
+                                
+                                <%= link_to "Unfriend", friendship_path(friend.id), class: "btn btn-warning  ml-0 mt-2 fbtn",confirm: "Are you sure you want to unfriend ", method: :delete %>
+                            </div>
+                      
+                        </div>
+                        </li>
+                        
+                    <% end %>   
+       
+                </div>
+
+                    </ul>
+                </div>
+        </div>
+
+    </div>
+ </div>
+
+
+

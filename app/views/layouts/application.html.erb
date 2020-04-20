@@ -39,8 +39,8 @@
                 <nav>
                   <ul id="navigation">
                     <li><a class="active" href="/home/index">home</a></li>
-                    <li><a href="#">Friends</a></li>
-                    <li><a href="#">Groups</a></li>
+                    <li><a href="friendships">Friends</a></li>
+                    <li><a href="groups">Groups</a></li>
                     <li><a href="#">Orders</a></li>
                     <li><a href="#">blog <i class="ti-angle-down"></i></a>
                       <ul class="submenu">
@@ -87,7 +87,13 @@
                   </ul>
                 </div>
                 <div class="book_btn d-none d-xl-block">
+                   <% if current_user %>
                   <a      <%=  link_to  "logout", destroy_user_session_path, method: :delete %> > </a>
+                    
+                  <%else%>
+                    <a  <%= link_to 'Log in' , new_user_session_path %> > </a>
+
+                      <%end%>
                 </div>
               </div>
             </div>
@@ -139,9 +145,13 @@
     </div>
   </div>
   <!-- slider_area_end -->
-    <%= render 'layouts/alerts' %>
+  <div class = "container">
+   <%= render 'layouts/alerts' %>
+     <%= yield %> 
+  </div>
+    
 
-  <%= yield %> 
+
 
   <footer class="footer">
     <div class="footer_top">
@@ -256,7 +266,6 @@
   <script src="/js/jquery.form.js"></script>
   <script src="/js/jquery.validate.min.js"></script>
   <script src="/js/mail-script.js"></script>
-
   <script src="/js/main.js"></script>
 </body>
 

@@ -1,0 +1,69 @@
+        <% if @error %>
+            <div class="alert alert-danger"><%= @error %></div>
+        <% end %>
+
+
+
+<%= form_for(User.new,url: :friendships_create) do |form| %>
+    <div class="form-row m-4">
+        <div class="form-group col-md-12 row field">
+                <%= form.label(:email, "Add Your Friend:", class: "col-sm-2 mt-2 mr-0") %> 
+                <%= form.email_field(:email, class: "form-control col-sm-4", placeholder: "Email" ) %>
+                <%= form.submit("Add", class: "col-sm-2 ml-2 btn btn-warning") %>
+        </div>
+
+    </div>
+ <% end %>
+
+<% if  flash[:notice].present? %>
+      <div class="alert alert-success">
+      <%= flash[:notice] %>
+      </div>
+<% end %>
+<div class="container">
+
+  <div class="header">
+    <h3 class="text-muted prj-name">
+        <span class="fa fa-users fa-2x principal-title"></span>
+        <span class="fname">Friend zone</span>
+    </h3>
+  </div>
+
+
+  <div class="jumbotron list-content pt-4 pb-2">
+            <ul class="list-group">
+                <div class="row">
+                    <li href="#" class="list-group-item title col-sm-12 mb-3">
+                        Your friend zone
+                    </li>
+                </div>
+
+
+
+                <div class="row pb-2">
+                    <% @user_friends.each do |friend| %>           
+                        <li href="#" class="list-group-item text-left col-md-4  mt-auto mr-auto ml-auto mb-3 ">
+                         <div class="media">
+                            <img class="mr-2 fimg" src=<%= friend.image %>  alt="Generic placeholder image">
+                        
+                            <div class="media-body mbody mt-2 ml-0">
+                                 <h5 class="mt-0 fname"><%=friend.first_name%>  <%=friend.last_name%></h5>
+                                 <a href="#" class="email"><%=friend.email%></a>
+                                <%= link_to "Unfriend", friendship_path(friend.id), class: "btn btn-warning  ml-0 mt-2 fbtn",confirm: "Are you sure you want to unfriend ", method: :delete %>
+                            </div>
+                        
+                        </div>
+                        </li>
+                        
+                    <% end %>   
+       
+                </div>
+        
+
+            </ul>
+  </div>
+ 
+
+
+
+

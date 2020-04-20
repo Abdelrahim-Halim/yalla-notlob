@@ -1,0 +1,25 @@
+.list-content{
+    min-height:300px;
+   }
+   .list-content .list-group .title{
+     background:#5bc0de;
+     border:2px solid #DDDDDD;
+     font-weight:bold;
+     color:#FFFFFF;
+   }
+   .list-group-item img {
+       height:80px; 
+       width:80px;
+   }
+   
+
+   .prj-name {
+       color:#5bc0de;    
+   }
+   .break{
+       width:100%;
+       margin:20px;
+   }
+   .name {
+       color:#5bc0de;    
+   }

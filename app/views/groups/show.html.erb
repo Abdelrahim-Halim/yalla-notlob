@@ -1,0 +1,66 @@
+<% if flash[:notice].present? %>
+    <div class ="alert alert-success">
+        <%= flash[:notice] %>
+    </div>
+<% end %>
+<% if flash[:error].present? %>
+    <div class ="alert alert-warning">
+        <%= flash[:error] %>
+    </div>
+<% end %>
+
+ <div class="container bootstrap snippet">
+         <%if @group.id %>  
+            <%= form_for(User.new,url: group_path(@group),method: "post") do |form| %>
+                <div class="form-row m-4">
+                    <div class="form-group col-sm-12 row field">                                           
+                        <%= form.label :email, "Add Your Friend:",class: "col-sm-2 mt-2 mr-0 label" %>
+                        <%= form.text_field :email, class: "form-control col-sm-4 ", placeholder: "Email ..." %>
+                        <%= form.submit("Add Friend", class: "col-sm-2 ml-2 btn btn-warning ") %>
+                    </div>
+                </div>
+            <% end %>
+        <% end %>
+        <div class="row">
+                                      
+
+                                  
+        <div class="col-sm-8">
+                        <div class="header">
+                            <h3 class="text-muted prj-name">
+                                <span class="fa fa-user fa-2x principal-title"></span>
+                                <span class="fname"><%= @group.name %></span>
+                            
+                            </h3>
+                        </div>
+                    <div class="jumbotron list-content pt-4 pb-2">
+
+                            
+                                <ul class="list-group">
+
+                                    <div class="row pb-2">
+                                    <% if @groupUsers != nil %>
+                                        <% @groupUsers.each do |user| %>          
+                                            <li href="#" class="list-group-item text-left col-md-4  mt-auto mr-auto ml-auto mb-3 ">
+                                            <div class="media" style="width: 250px;">
+                                                <img class="mr-2 fimg" src=<%= user.image %>   alt="Generic placeholder image">
+                                                <div class="media-body mbody mt-2">
+                                                    <h5 class="mt-0 fname"><%=user.first_name%>  <%=user.last_name%></h5>
+                                            
+                                                    <%= link_to "Remove", remove_friend_path(uid: user.id,gid: @group.id), class: "btn btn-warning  ml-0 mt-2 fbtn",confirm: "Are you sure you want delete this friend from group?", method: :delete , action: :removeFriendFromGroup %>
+                                                </div>
+                                            
+                                            </div>
+                                            </li>
+                                        <% end %>  
+
+                                      <% end %>
+                                    </div>
+                            
+
+                                </ul>
+                    </div>
+
+        </div>
+        </div>
+</div>

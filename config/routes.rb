@@ -10,5 +10,15 @@ Rails.application.routes.draw do
   get 'home/index'
   root 'home#index'
   resources :order
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  resources :friendships
+
+  post '/friendships/create', to: 'friendships#create'
+
+  resources :groups
+
+
+  post '/groups/:id', to: 'groups#addFriendToGroup'
+  delete '/groups/:gid/:uid', to: 'groups#removeFriendFromGroup',as: 'remove_friend'
+
 end
