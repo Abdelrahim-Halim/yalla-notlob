@@ -58,6 +58,6 @@ gem 'rails-erd'
 gem 'bootstrap', '~> 4.4.1'
 gem 'carrierwave', '~> 1.3', '>= 1.3.1'
 gem 'dotenv-rails'
-
+gem "figaro"
 gem 'devise'
 
