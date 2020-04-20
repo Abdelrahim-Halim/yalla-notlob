@@ -1,7 +1,6 @@
 class FriendshipsController < ApplicationController
     def index
         @user_friends = User.find(1).friendships 
-        # @friend_name = User.find(@user_friends[1].id)
         @friends = []
         @user_friends.each do |fri|
           users = User.find(fri.friendship_ids)
@@ -10,7 +9,6 @@ class FriendshipsController < ApplicationController
      
     end
     def new
-        # create new fiendships object
         @new_friend = User.new
         @user_friends = User.find(1).friendships  
          
@@ -49,13 +47,6 @@ class FriendshipsController < ApplicationController
       end
     
       def destroy
-
-        # User.find(1).friendships.destroy(User.find(params[:id]))
-        # @friendship = current_user.friendships.find(params[:id])
-        # @friendship =Friendship.find(friend_a_id: 1, friend_b_id: params[:id])
-        # p @friendship
-        # @friendship.destroy
-
         if User.find(1).friendships.delete(params[:id])
            flash[:notice] = "Removed friendship."
         end

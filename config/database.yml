@@ -18,7 +18,6 @@ default: &default
   socket: /var/lib/mysql/mysql.sock
   host: localhost
 
-
 development:
   <<: *default
   database: yalla_notlob_development
