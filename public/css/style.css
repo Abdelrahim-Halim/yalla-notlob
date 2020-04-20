@@ -6277,8 +6277,8 @@ h6 {
 /*# sourceMappingURL=style.css.map */
 
 .fimg{
-  width: 40% !important;
-  height: 70% !important;
+  width: 30% !important;
+  height: 60% ;
 }
 
 .fbtn{
@@ -6306,5 +6306,10 @@ h6 {
 }
 
 .email{
+  font-size: 15px;
   color: #3381ca;
+}
+
+.mbody{
+  width:  60%;
 }
