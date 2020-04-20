@@ -7,25 +7,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :notifications
   has_many :orders
-  # has_many :groups
   has_many :order_items
   has_many :invited_users
   has_many :user_activities
-  # has_many :group_friends
   has_and_belongs_to_many :groups
-
-
-<<<<<<< HEAD
-  # has_many :friendships_as_friend_a, 
-  #     foreign_key: :friend_a_id, 
-  #     class_name: :Friendship
-  # has_many :friendships_as_friend_b, 
-  #     foreign_key: :friend_b_id, 
-  #     class_name: :Friendship,
-  #     dependent: :destroy
-  # has_many :friend_as, through: :friendships_as_friend_b
-  # has_many :friend_bs, through: :friendships_as_friend_a
-
 
 
     #frinds relationship
@@ -37,17 +22,7 @@ class User < ApplicationRecord
     :before_add => :validates_friend,
     dependent: :destroy
 
-  # def friendships
-  #   self.friendships_as_friend_a + self.friendships_as_friend_b
-  # end
-  
-#  attr_accessor :first_name ,:last_name, :email, :password,  :image, :image_cache, :remove_image
-=======
-  def friendships
-    self.friendships_as_friend_a
-  end
-  # attr_accessor :first_name ,:last_name, :email, :password,  :image, :image_cache, :remove_image
->>>>>>> 128e8f9d1a6830f212e5fa14182ecef0c25dc37c
+
 
  
 end
