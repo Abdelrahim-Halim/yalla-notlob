@@ -27,9 +27,5 @@ class User < ApplicationRecord
   # end
   
 #  attr_accessor :first_name ,:last_name, :email, :password,  :image, :image_cache, :remove_image
-=======
-
->>>>>>> git commit -m "delete all comments from users and groups controller"
-
  
 end
