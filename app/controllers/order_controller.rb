@@ -2,7 +2,6 @@ class OrderController < ApplicationController
   def new
     require 'json'
     @order = Order.new
-    current_user = User.find(1)
 
     # get all friends
     friends = current_user.friendships()
@@ -32,9 +31,12 @@ class OrderController < ApplicationController
     @groupsArrjs = groupsArr.to_json
 
   end
+
+  def seen
+    Notification.where(user_id: params[:id]).update_all(seen: "true")
+  end
   
   def create
-    current_user = User.find(1)
     puts params
     @order = Order.new(orderParameters)
     @order.user_id = current_user.id
@@ -94,13 +96,17 @@ class OrderController < ApplicationController
       pusher.trigger('my-channel', "#{user_id}", {
         message: "#{current_user.first_name} invited you to his order",
         action_url: "/order/#{order_id}",
-        img: "#{current_user.image}"
+        img: "#{current_user.image}",
+        notificationType: "join"
 
       })
       Notification.create({
         user_id: user_id,
         content: "#{current_user.first_name} invited you to his order",
         actionURL: "/order/#{order_id}",
+        seen: false,
+        img: "#{current_user.image}",
+        notificationType: "join"
       })
       InvitedUser.create(user_id: user_id,order_id: order_id)
     end
