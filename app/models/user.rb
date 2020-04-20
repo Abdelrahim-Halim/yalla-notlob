@@ -21,8 +21,5 @@ class User < ApplicationRecord
     :association_foreign_key => "friend_b_id",
     :before_add => :validates_friend,
     dependent: :destroy
-
-
-
  
 end
