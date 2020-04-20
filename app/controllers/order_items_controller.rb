@@ -1,7 +1,6 @@
 class OrderItemsController < ApplicationController
   def index
     @order = Order.find(params[:id])
-    @current_user = User.find(2)
     @orderDetails = @order.order_items
   end
 
@@ -12,7 +11,7 @@ class OrderItemsController < ApplicationController
     @item.quntity = params[:quntity]
     @item.comment = params[:comment]
     @item.order_id = params[:order_id]
-    @item.user_id = 2
+    @item.user_id = current_user.id
 
     puts (@item)
     if  @item.save
