@@ -4,6 +4,7 @@
 			<div class="panel panel-primary">
 			    <div class="panel-heading">
 			       <h1> Latest Orders </h1>
+				   <hr>
 			    </div>
 			    <div class="panel-body">
 			        <div class="row">
@@ -12,11 +13,11 @@
 							<b>
 							
 							<% if(order.order_type == "breakfast") %>
-							    BreakFast at <%= order.created_at %></b><br>
+							    BreakFast at ( <%= order.created_at %> )</b><br>
                                 <% elsif(order.order_type == "lunch")%>
-                                Lunch at <%= order.created_at %></b><br>
+                                Lunch at ( <%= order.created_at %> )</b><br>
 							    <% else %>
-							    Dinner at <%= order.created_at %> </b><br>
+							    Dinner at ( <%= order.created_at %> ) </b><br>
 							  <% end %>
                               <hr>
 						
@@ -32,6 +33,7 @@
 			<div class="panel panel-primary">
 			    <div class="panel-heading">
 			       <h1> Friend's Activties </h1>
+				   <hr>
 			    </div>
 			    <div class="panel-body">
 			        <div class="row">
@@ -39,12 +41,13 @@
 						   <% gorder.each do |order| %>
 						     <b>
 						      <% @allmyFriends.each do |user|%>
-						         <%= user.name %>
+						         <%= user.first_name %>
 						       <%end%>
 						       has created an order for <% if order.order_type == "breakfast" %>BreakFast
 							   <% elsif order.order_type == "lunch" %>Lunch 
 						       <% else %>Dinner
 					           <% end %>from <%= order.restaurant %> <br> 
+							   <hr>
 					    	<% end %> </b>
 						     <br>
 					      <% end %> 
