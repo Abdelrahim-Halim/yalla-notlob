@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2020_04_19_204433) do
 ActiveRecord::Schema.define(version: 2020_04_12_111220) do
 >>>>>>> 128e8f9d1a6830f212e5fa14182ecef0c25dc37c
 
-  create_table "friendships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "friendships", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "friend_a_id"
