@@ -1,12 +1,11 @@
 class OrderController < ApplicationController
   def new
+
     require 'json'
     @order = Order.new
-    
 
     # get all friends
     friends = current_user.friendships()
-    puts "test" 
     friendsArr = Array.new()
     friends.each do |f| 
       puts f.id
@@ -34,7 +33,7 @@ class OrderController < ApplicationController
   end
   
   def create
-    current_user = User.find(1)
+    # current_user = User.find(1)
     puts params
     @order = Order.new(orderParameters)
     @order.user_id = current_user.id
@@ -49,7 +48,7 @@ class OrderController < ApplicationController
     end
 
     # create order
-    order = Order.create(user_id: current_user.id,resturant: params[:order][:resturant], order_type: params[:order][:order_type], menu: uploaded_io.original_filename, status: "waiting")
+    #order = Order.create(user_id: current_user.id,resturant: params[:order][:resturant], order_type: params[:order][:order_type], menu: uploaded_io.original_filename, status: "waiting")
 
     # invite friends
     friendsWillInvite = params[:mailValues] 
@@ -57,7 +56,7 @@ class OrderController < ApplicationController
       friend = User.where(email: email)
      
       if friend.length > 0 #&& Friendship.where(friend_a: current_user.id, friend_b: friend[0].id).count() > 0
-        invite(friend[0].id, order.id)
+        invite(friend[0].id, @order.id)
       end
     end
 
@@ -69,41 +68,88 @@ class OrderController < ApplicationController
         continue
       end
       group.group_friends.each do |user|
-        invite(user.id, order.id)
+        invite(user.id, @order.id)
       end
     end
     
     # redirect to order page
+    redirect_to :order_index
+  end
+  
+  def show
+    @order = Order.find(params[:id])
+    invites = @order.invited_users
+    invited_ids = []
+
+    invites.each do |invite|
+        invited_ids.push(invite.user_id)
+    end
+    @invited_users=User.find(invited_ids)
+  end
+
+  def index
+    # @current_user = User.find(1)
+    my_orders = current_user.orders.order(created_at: :desc)
+    invites = current_user.invited_users
+    invited_to_orders = []
+    invites.each do |invite|
+      invited_to_orders.push(invite.order)
+    end
+
+    @orders = my_orders + invited_to_orders
+    
+  end
+  # @orders = Order.where(:created_at < now()-7)
+  # final_orders = []
+  # @orders.each do |order|
+  #   if User.find(order.user_id) in current_user.friends
+  #     final_orders.push(order)
+  #   end
+  # end
+
+  def finish
+    puts "hello world"
+    @order = Order.find(params[:id])
+    @order.status="finished"
+    @order.save
+    redirect_to :order_index
+  end
+
+  def destroy
+    @order = Order.find(params[:id])
+    @order.destroy
+    redirect_to :order_index
   end
 
   private
-    def orderParameters
-      params.require(:order).permit(:order_type, :resturant, :menu)
-    end
-    def invite(user_id, order_id)
-      # send notification 
-      require 'pusher'
-      pusher = Pusher::Client.new(
-        app_id: '982999',
-        key: '2bd7d28e1b0bab57da91',
-        secret: '6c02fa5838d3dc945a12',
-        cluster: 'mt1',
-        encrypted: true
-      )
+  def orderParameters
+    params.require(:order).permit(:order_type, :resturant, :menu, :user_id, :id)
+  end
 
-      pusher.trigger('my-channel', "#{user_id}", {
-        message: "#{current_user.first_name} invited you to his order",
-        action_url: "/order/#{order_id}",
-        img: "#{current_user.image}"
+  def invite(user_id, order_id)
+    # send notification 
+    require 'pusher'
+    pusher = Pusher::Client.new(
+      app_id: '982999',
+      key: '2bd7d28e1b0bab57da91',
+      secret: '6c02fa5838d3dc945a12',
+      cluster: 'mt1',
+      encrypted: true
+    )
 
-      })
-      Notification.create({
-        user_id: user_id,
-        content: "#{current_user.first_name} invited you to his order",
-        actionURL: "/order/#{order_id}",
-      })
-      InvitedUser.create(user_id: user_id,order_id: order_id)
-    end
-  
-    
+    pusher.trigger('my-channel', "#{user_id}", {
+      message: "#{current_user.first_name} invited you to his order",
+      action_url: "/orders/#{order_id}/items",
+      img: "#{current_user.image}"
+
+    })
+    Notification.create({
+      user_id: user_id,
+      content: "#{current_user.first_name} invited you to his order",
+      actionURL: "/orders/#{order_id}/items",
+    })
+    InvitedUser.create(user_id: user_id,order_id: order_id)
+  end
+
+
 end

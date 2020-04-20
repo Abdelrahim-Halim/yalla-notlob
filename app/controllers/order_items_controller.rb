@@ -13,8 +13,8 @@ class OrderItemsController < ApplicationController
     @item.order_id = params[:order_id]
     @item.user_id = current_user.id
 
-    puts (@item)
     if  @item.save
+      InvitedUser.where(user_id: current_user.id, order_id: @item.order_id).update_all(status: "true")
       redirect_to order_details_path(id: @item.order_id)
     else
       puts (@item.errors.full_messages)
