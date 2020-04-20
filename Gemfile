@@ -59,3 +59,5 @@ gem 'carrierwave', '~> 1.3', '>= 1.3.1'
 gem 'dotenv-rails'
 gem "figaro"
 gem 'devise'
+gem 'pusher'
+

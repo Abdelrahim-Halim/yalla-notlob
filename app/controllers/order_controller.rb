@@ -9,11 +9,12 @@ class OrderController < ApplicationController
     puts "test" 
     friendsArr = Array.new()
     friends.each do |f| 
-      data = {  id: User.select('id').find(id=f.friend_b_id).id, 
-                first_name: User.select('first_name').find(id=f.friend_b_id).first_name, 
-                last_name: User.select('last_name').find(id=f.friend_b_id).last_name, 
-                email: User.select('email').find(id=f.friend_b_id).email,
-                image: User.select('image').find(id=f.friend_b_id).image,
+      puts f.id
+      data = {  id: f.id, 
+                first_name: f.first_name, 
+                last_name: f.last_name, 
+                email: f.email,
+                image: f.image,
               }
       friendsArr.push data
     end
@@ -55,7 +56,7 @@ class OrderController < ApplicationController
     friendsWillInvite.split(',').each do |email| 
       friend = User.where(email: email)
      
-      if friend.length > 0 && Friendship.where(friend_a: current_user.id, friend_b: friend[0].id).count() > 0
+      if friend.length > 0 #&& Friendship.where(friend_a: current_user.id, friend_b: friend[0].id).count() > 0
         invite(friend[0].id, order.id)
       end
     end
@@ -81,8 +82,28 @@ class OrderController < ApplicationController
     end
     def invite(user_id, order_id)
       # send notification 
+      require 'pusher'
+      pusher = Pusher::Client.new(
+        app_id: '982999',
+        key: '2bd7d28e1b0bab57da91',
+        secret: '6c02fa5838d3dc945a12',
+        cluster: 'mt1',
+        encrypted: true
+      )
 
+      pusher.trigger('my-channel', "#{user_id}", {
+        message: "#{current_user.first_name} invited you to his order",
+        action_url: "/order/#{order_id}",
+        img: "#{current_user.image}"
+
+      })
+      Notification.create({
+        user_id: user_id,
+        content: "#{current_user.first_name} invited you to his order",
+        actionURL: "/order/#{order_id}",
+      })
       InvitedUser.create(user_id: user_id,order_id: order_id)
     end
   
+    
 end
