@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 2020_04_19_204433) do
     t.index ["user_id"], name: "index_user_activities_on_user_id"
   end
 
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
