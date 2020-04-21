@@ -1,4 +1,16 @@
 class OrderController < ApplicationController
+
+  def index
+    
+    my_orders = current_user.orders.order(created_at: :desc)
+    invites = current_user.invited_users
+    invited_to_orders = []
+    invites.each do |invite|
+        invited_to_orders.push(invite.order)
+    end
+    @orders = my_orders + invited_to_orders
+  end
+
   def new
 
     require 'json'
@@ -77,7 +89,7 @@ class OrderController < ApplicationController
     end
     
     # redirect to order page
-    redirect_to :order_index
+    redirect_to controller: 'order_items', action: 'index', id: @order.id
   end
   
   def show
@@ -133,7 +145,7 @@ class OrderController < ApplicationController
 
     pusher.trigger('my-channel', "#{user_id}", {
       message: "#{current_user.first_name} invited you to his order",
-      action_url: "/order/#{order_id}",
+      action_url: "/orders/#{order_id}/items",
       img: "#{current_user.image}",
       notificationType: "join"
 
@@ -141,7 +153,7 @@ class OrderController < ApplicationController
     Notification.create({
       user_id: user_id,
       content: "#{current_user.first_name} invited you to his order",
-      actionURL: "/order/#{order_id}",
+      actionURL: "/orders/#{order_id}/items",
       seen: false,
       img: "#{current_user.image}",
       notificationType: "join"

@@ -26,7 +26,7 @@ class OrderItemsController < ApplicationController
       order_creator = Order.find(@item.order_id).user_id
       pusher.trigger('my-channel', "#{order_creator}", {
         message: "#{current_user.first_name} joined your order",
-        action_url: "/order/#{@item.order_id}",
+        action_url: "/orders/#{@item.order_id}/items",
         img: "#{current_user.image}",
         notificationType: "view"
 
@@ -34,7 +34,7 @@ class OrderItemsController < ApplicationController
       Notification.create({
         user_id: order_creator,
         content: "#{current_user.first_name} joined your order",
-        actionURL: "/order/#{@item.order_id}",
+        actionURL: "/orders/#{@item.order_id}/items",
         seen: false,
         img: "#{current_user.image}",
         notificationType: "view "

@@ -19,6 +19,8 @@ class ApplicationController < ActionController::Base
       @notifications = Notification.where(user_id: current_user.id).order(created_at: :desc)    
     end
   end
+
+  before_action :authenticate_user!
 #   def serializable_hash(options = nil) 
 #     super(options).merge(encrypted_password: encrypted_password) 
 #   end
