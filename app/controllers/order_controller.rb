@@ -37,6 +37,7 @@ class OrderController < ApplicationController
   end
   
   def create
+    current_user = User.find(1)
     puts params
     @order = Order.new(orderParameters)
     @order.user_id = current_user.id

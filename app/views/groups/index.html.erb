@@ -80,16 +80,15 @@
 
                     <div class="row pb-2">
                      <% @user_friends.each do |friend| %>           
-                        <li href="#" class="list-group-item text-left col-md-3.5  mt-auto mr-auto ml-auto mb-3 ">
+                        <li href="#" class="list-group-item text-left col-md-4 mt-auto mr-auto ml-auto mb-3 ">
                          <div class="media" style="width: 250px;">
-                            <img class="mr-3 fimg" src="https://bootdey.com/img/Content/user_2.jpg"  alt="Generic placeholder image">
-                         <div class="bg-white">
-                            <div class="media-body mt-2">
+                            <img class="mr-2 fimg" src=<%= friend.image %>   alt="Generic placeholder image">
+                            <div class="media-body mbody mt-2">
                                 <h5 class="mt-0 fname"><%=friend.first_name%>  <%=friend.last_name%></h5>
-                                 <a href="#" class="email"><%=friend.email%></a>
+                                
                                 <%= link_to "Unfriend", friendship_path(friend.id), class: "btn btn-warning  ml-0 mt-2 fbtn",confirm: "Are you sure you want to unfriend ", method: :delete %>
                             </div>
-                        </div>
+                      
                         </div>
                         </li>
                         

@@ -1,9 +1,9 @@
 class GroupsController < ApplicationController
 
     def index
-         @user_friends = User.find(1).friendships   
+         @user_friends = current_user.friendships   
         @group = Group.new
-        @group = Group.where(user_id: User.find(1)).all
+        @group = Group.where(user_id: current_user.id).all
     end
 
     def new
@@ -12,9 +12,9 @@ class GroupsController < ApplicationController
 
     def create
         @new_group = Group.new()
-        @new_group.user_id = User.find(1).id
+        @new_group.user_id = current_user.id
         @new_group.name = params[:group][:name]
-        if Group.find_by(name: params[:group][:name] , user_id: User.find(1).id)
+        if Group.find_by(name: params[:group][:name] , user_id: current_user.id)
             flash[:error] = "this group is already exist"
             redirect_to :groups
         else
@@ -39,20 +39,20 @@ class GroupsController < ApplicationController
     end
 
     def destroy
-        @group = Group.find(params[:id])
-        @group.destroy
+        group = Group.find(params[:id])
+        group.destroy
         flash[:notice] = "Group is destroyed successfully"
         redirect_to :groups
+
     end
 
     def addFriendToGroup
 
-        user = User.find(1) #current_user
-        @new_friend = user.friendships.find_by(email: params[:user][:email])
+        @new_friend =  current_user.friendships.find_by(email: params[:user][:email])
         group = Group.find(params[:id])
         @groupUsers = group.users.all
         p @new_friend 
-        if user.friendships.include? @new_friend
+        if  current_user.friendships.include? @new_friend
           if @groupUsers.nil?
             group.users << @new_friend
             p group.users.all

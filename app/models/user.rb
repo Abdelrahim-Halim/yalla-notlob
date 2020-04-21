@@ -21,11 +21,5 @@ class User < ApplicationRecord
     :association_foreign_key => "friend_b_id",
     :before_add => :validates_friend,
     dependent: :destroy
-
-  # def friendships
-  #   self.friendships_as_friend_a + self.friendships_as_friend_b
-  # end
-  
-#  attr_accessor :first_name ,:last_name, :email, :password,  :image, :image_cache, :remove_image
  
 end
