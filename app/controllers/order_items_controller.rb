@@ -15,6 +15,30 @@ class OrderItemsController < ApplicationController
 
     if  @item.save
       InvitedUser.where(user_id: current_user.id, order_id: @item.order_id).update_all(status: "true")
+      require 'pusher'
+      pusher = Pusher::Client.new(
+        app_id: '982999',
+        key: '2bd7d28e1b0bab57da91',
+        secret: '6c02fa5838d3dc945a12',
+        cluster: 'mt1',
+        encrypted: true
+      )
+      order_creator = Order.find(@item.order_id).user_id
+      pusher.trigger('my-channel', "#{order_creator}", {
+        message: "#{current_user.first_name} joined your order",
+        action_url: "/order/#{@item.order_id}",
+        img: "#{current_user.image}",
+        notificationType: "view"
+
+      })
+      Notification.create({
+        user_id: order_creator,
+        content: "#{current_user.first_name} joined your order",
+        actionURL: "/order/#{@item.order_id}",
+        seen: false,
+        img: "#{current_user.image}",
+        notificationType: "view "
+      })
       redirect_to order_details_path(id: @item.order_id)
     else
       puts (@item.errors.full_messages)

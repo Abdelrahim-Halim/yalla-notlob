@@ -20,7 +20,7 @@ class OrderController < ApplicationController
     @friendsArrjs = friendsArr.to_json
 
     # get all groups 
-    groups = current_user.groups
+    groups = Group.where(user_id: current_user.id).all 
     groupsArr = Array.new()
     groups.each do |f| 
       data = {  id: f.id, 
@@ -67,11 +67,11 @@ class OrderController < ApplicationController
     # invite groups
     groupsWillInvite = params[:groupValues] 
     groupsWillInvite.split(',').each do |groupName| 
-      group = groups.where("name = ? AND user_id = ?", groupName, current_user.id)
-      if users.length == 0
+      group = Group.where("name = ?", groupName)
+      if group.length == 0
         continue
       end
-      group.group_friends.each do |user|
+      group[0].users.all.each do |user|
         invite(user.id, @order.id)
       end
     end

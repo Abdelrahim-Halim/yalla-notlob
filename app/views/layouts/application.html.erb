@@ -36,8 +36,9 @@
       forceTLS: true
     });
 
-    var channel = pusher.subscribe('my-channel');
-    channel.bind(`<%= current_user.id %>`, function(data) {
+    <% if current_user %>
+      var channel = pusher.subscribe('my-channel');
+      channel.bind(`<%= current_user.id %>`, function(data) {
       var el = document.querySelector('.notification_icon');
 
       var li = document.createElement("li");
@@ -75,7 +76,7 @@
       ele.insertBefore(li,ele.firstChild)
       updateNotificationCount(1)
 
-      }); <
+      }); 
     <% end %>
   </script>
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
@@ -232,14 +233,6 @@
   </div>
 
 
-
-  <div class = "container">
-   <%= render 'layouts/alerts' %>
-     <%= yield %> 
-  </div>
-    
-
-
   <footer class="footer">
     <div class="footer_top">
       <div class="container">
@@ -362,28 +355,30 @@
   <script src="/js/main.js"></script>
 
   <script>
-    $(document).ready(function () {
-      $(".notification_icon .fa-bell").click(function () {
-        $(".dropdown").toggleClass("active");
-        var el = document.querySelector('.notification_icon');
-        el.setAttribute('data-count', 0);
-        el.classList.remove('notify');
-        el.offsetWidth = el.offsetWidth;
-        el.classList.add('notify');
-        el.classList.remove('show-count');
+    <% if current_user %>
+      $(document).ready(function () {
+        $(".notification_icon .fa-bell").click(function () {
+          $(".dropdown").toggleClass("active");
+          var el = document.querySelector('.notification_icon');
+          el.setAttribute('data-count', 0);
+          el.classList.remove('notify');
+          el.offsetWidth = el.offsetWidth;
+          el.classList.add('notify');
+          el.classList.remove('show-count');
 
-        $.ajax({
-          async: false,
-          cache: false,
-          url: "/order/seen",
-          type: 'GET',
-          data: {
-              id: <%= @current_user.id %>
-          },
+          $.ajax({
+            async: false,
+            cache: false,
+            url: "/order/seen",
+            type: 'GET',
+            data: {
+                id: <%= @current_user.id %>
+            },
+        });
+
+        })
       });
-
-			})
-		});
+    <% end %>
 
 function updateNotificationCount(cnt){
     var el = document.querySelector('.notification_icon');
@@ -397,13 +392,15 @@ function updateNotificationCount(cnt){
     }
 }
 cnt = 0
-  <% @notifications.each do |noti| %>
-      <% if !noti.seen %>
-        cnt+=1
-      <% end %>
-  <% end %>
-  if (cnt)
-  updateNotificationCount(cnt)
+  <% if current_user %>
+    <% @notifications.each do |noti| %>
+        <% if !noti.seen %>
+          cnt+=1
+        <% end %>
+    <% end %>
+    if (cnt)
+    updateNotificationCount(cnt)
+    <% end %>
   </script>
 </body>
 

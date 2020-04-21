@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
 
     def index
-         @user_friends = current_user.friendships   
+        @user_friends = current_user.friendships   
         @group = Group.new
         @group = Group.where(user_id: current_user.id).all
     end
