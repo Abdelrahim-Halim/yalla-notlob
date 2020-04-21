@@ -7,7 +7,6 @@
     <tr>
       <th class="text-center">Meal</th>
       <th class="text-center">Restaurant</th>
-      <%# <th class="text-center">Menu</th> %>
       <th class="text-center">invited</th>
       <th class="text-center">joined</th>
       <th class="text-center">Status</th>
@@ -28,7 +27,6 @@
           <% end %>
         </td>
         <td class='align-middle'> <%= order.resturant %></td>
-        <%# <td class='align-middle'> <img src="images/menus/<%= order.menu " width=200 /></td> %>
         <td class='align-middle'> <%= order.invited_users.length %></td>
         <% joined = 0 %>
         <% order.invited_users.each do |invite| %>
@@ -53,8 +51,8 @@
                     <%= submit_tag( "Finish", class: "btn btn-success text-light")%>
 
               </td>
-              <td class="align-middle"><%= link_to "Cancel", order, method: :delete, class: "btn btn-danger text-light"%></td>
-           <% end %>
+            <td class="align-middle"><%= link_to "Cancel", order, method: :delete, class: "btn btn-danger text-light"%></td>
+            <% end %>
           <% end %>
       </tr>
     <% end %>

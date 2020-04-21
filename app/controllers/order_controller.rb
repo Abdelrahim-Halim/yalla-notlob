@@ -102,20 +102,9 @@ class OrderController < ApplicationController
     end
     redirect_to controller: 'order_items', action: 'index', id: @order.id
     
-
-    # @orders = my_orders + invited_to_orders
-    
   end
-  # @orders = Order.where(:created_at < now()-7)
-  # final_orders = []
-  # @orders.each do |order|
-  #   if User.find(order.user_id) in current_user.friends
-  #     final_orders.push(order)
-  #   end
-  # end
 
   def finish
-    puts "hello world"
     @order = Order.find(params[:id])
     @order.status="finished"
     @order.save
