@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   
   devise_for :users
   get 'home/index'
+
+  get 'order/seen'
   root 'home#index'
   get 'order/show'
   post 'order/:id/finish_order', to: 'order#finish', as: 'finish_order'

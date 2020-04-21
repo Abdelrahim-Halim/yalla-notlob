@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="/css/nice-select.css">
   <link rel="stylesheet" href="/css/flaticon.css">
   <link rel="stylesheet" href="/css/animate.css">
-  <link rel="stylesheet" href="/css/slicknav.css">
+  <link rel="stylesheet" href="css/slicknav.css">
   <link rel="stylesheet" href="/css/style.css">
 
   <!-- Push -->
@@ -36,52 +36,44 @@
       forceTLS: true
     });
 
-    var channel = pusher.subscribe('my-channel'); 
-    <% if current_user %>
-      channel.bind(`<%= current_user.id %>`, function (data) {
-        var el = document.querySelector('.notification_icon');
+    var channel = pusher.subscribe('my-channel');
+    channel.bind(`<%= current_user.id %>`, function(data) {
+      var el = document.querySelector('.notification_icon');
 
-        var li = document.createElement("li");
-        li.setAttribute("class", "notify_item");
+      var li = document.createElement("li");
+      li.setAttribute("class","notify_item");
 
-        var div1 = document.createElement("div");
-        div1.setAttribute("class", "notify_img");
+      var div1 = document.createElement("div");
+      div1.setAttribute("class","notify_img");
 
-        var img = document.createElement("img")
-        img.src = data.img
-        img.style.width = "40px"
-        img.style.height = "40px"
-        img.style.borderRadius = "100%"
+      var img = document.createElement("img")
+      img.src = data.img
+      img.style.width = "40px"
+      img.style.height = "40px"
+      img.style.borderRadius = "100%"
 
-        var div2 = document.createElement("div");
-        div2.setAttribute("class", "row");
+      var div2 = document.createElement("div");
+      div2.setAttribute("class","row");
 
-        var p = document.createElement("p")
-        p.textContent = data.message
+      var p = document.createElement("p")
+      p.textContent = data.message 
 
-        var a = document.createElement("a")
-        a.href = data.action_url
-        a.textContent = "Join"
-        a.setAttribute("class", "btn btn-info")
+      var a = document.createElement("a")
+      a.href = data.action_url
+      a.textContent = data.notificationType
+      a.setAttribute("class","btn btn-info")
 
-        div2.appendChild(img)
-        div2.appendChild(p)
-        div2.appendChild(a)
+      div2.appendChild(img)
+      div2.appendChild(p)
+      div2.appendChild(a)
 
-        li.appendChild(div1)
-        li.appendChild(div2)
+      li.appendChild(div1)
+      li.appendChild(div2)
+      var ele =  document.querySelectorAll('ul.dropdown')[0]
 
-        var ele = document.querySelectorAll('ul.dropdown')[0]
-
-        ele.insertBefore(li, ele.firstChild)
-        var count = Number(el.getAttribute('data-count')) || 0;
-        el.setAttribute('data-count', count + 1);
-        el.classList.remove('notify');
-        el.offsetWidth = el.offsetWidth;
-        el.classList.add('notify');
-        if (count === 0) {
-          el.classList.add('show-count');
-        }
+        
+      ele.insertBefore(li,ele.firstChild)
+      updateNotificationCount(1)
 
       }); <
     <% end %>
@@ -106,8 +98,8 @@
                 <nav>
                   <ul id="navigation">
                     <li><a class="active" href="/home/index">home</a></li>
-                    <li><a href="friendships">Friends</a></li>
-                    <li><a href="groups">Groups</a></li>
+                    <li><a href="/home/add_friend">Friends</a></li>
+                    <li><a href="#">Groups</a></li>
                     <li><a href="#">Orders</a></li>
                     <li><a href="#">blog <i class="ti-angle-down"></i></a>
                       <ul class="submenu">
@@ -140,11 +132,11 @@
                             </div>
                             <ul class="dropdown">
                               <% @notifications.each do |noti| %>
-                              <div class="row">
-                                <img src="/uploads/1.png" style="width: 40px; height: 40px; border-radius: 100%;">
-                                <p><%= noti.content %></p>
-                                <a href=<%= noti.actionURL %> class="btn btn-info">Join</a>
-                              </div>
+                                <div class="row">
+                                  <img src=<%= noti.img %> style="width: 40px; height: 40px; border-radius: 100%;">
+                                  <p><%= noti.content %></p>
+                                  <a href=<%= noti.actionURL %> class="btn btn-info"><%= noti.notificationType %></a>
+                                </div>
                               <% end %>
                             </ul>
                           </div>
@@ -240,6 +232,12 @@
   </div>
 
 
+
+  <div class = "container">
+   <%= render 'layouts/alerts' %>
+     <%= yield %> 
+  </div>
+    
 
 
   <footer class="footer">
@@ -358,6 +356,10 @@
   <script src="/js/jquery.validate.min.js"></script>
   <script src="/js/mail-script.js"></script>
   <script src="/js/main.js"></script>
+ 
+  <script src="/js/main.js"></script>
+
+  <script src="/js/main.js"></script>
 
   <script>
     $(document).ready(function () {
@@ -369,8 +371,39 @@
         el.offsetWidth = el.offsetWidth;
         el.classList.add('notify');
         el.classList.remove('show-count');
-      })
-    });
+
+        $.ajax({
+          async: false,
+          cache: false,
+          url: "/order/seen",
+          type: 'GET',
+          data: {
+              id: <%= @current_user.id %>
+          },
+      });
+
+			})
+		});
+
+function updateNotificationCount(cnt){
+    var el = document.querySelector('.notification_icon');
+    var count = Number(el.getAttribute('data-count')) || 0;
+    el.setAttribute('data-count', count + cnt);
+    el.classList.remove('notify');
+    el.offsetWidth = el.offsetWidth;
+    el.classList.add('notify');
+    if(count === 0){
+        el.classList.add('show-count');
+    }
+}
+cnt = 0
+  <% @notifications.each do |noti| %>
+      <% if !noti.seen %>
+        cnt+=1
+      <% end %>
+  <% end %>
+  if (cnt)
+  updateNotificationCount(cnt)
   </script>
 </body>
 
