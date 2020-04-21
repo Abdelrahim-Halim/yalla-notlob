@@ -100,9 +100,10 @@ class OrderController < ApplicationController
     invites.each do |invite|
         invited_ids.push(invite.user_id)
     end
+    redirect_to controller: 'order_items', action: 'index', id: @order.id
     
 
-    @orders = my_orders + invited_to_orders
+    # @orders = my_orders + invited_to_orders
     
   end
   # @orders = Order.where(:created_at < now()-7)

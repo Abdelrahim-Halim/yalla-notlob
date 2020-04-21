@@ -44,7 +44,7 @@
             Finished
           <% end %>
         </td>
-        <td class="align-middle"><%= link_to 'View', order, class: "btn btn-primary text-light" %></td>
+        <td class="align-middle"><%= link_to 'View', orders/{order.id}, class: "btn btn-primary text-light" %></td>
           <% if(order.user_id == current_user.id) %>
             <% if(order.status == "waiting") %>
               <td class="align-middle">
