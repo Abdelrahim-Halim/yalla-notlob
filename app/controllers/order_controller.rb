@@ -20,7 +20,7 @@ class OrderController < ApplicationController
     @friendsArrjs = friendsArr.to_json
 
     # get all groups 
-    groups = current_user.groups
+    groups = Group.where(user_id: current_user.id).all 
     groupsArr = Array.new()
     groups.each do |f| 
       data = {  id: f.id, 
@@ -30,6 +30,10 @@ class OrderController < ApplicationController
     end
     @groupsArrjs = groupsArr.to_json
 
+  end
+
+  def seen
+    Notification.where(user_id: params[:id]).update_all(seen: "true")
   end
   
   def create
@@ -63,11 +67,11 @@ class OrderController < ApplicationController
     # invite groups
     groupsWillInvite = params[:groupValues] 
     groupsWillInvite.split(',').each do |groupName| 
-      group = groups.where("name = ? AND user_id = ?", groupName, current_user.id)
-      if users.length == 0
+      group = Group.where("name = ?", groupName)
+      if group.length == 0
         continue
       end
-      group.group_friends.each do |user|
+      group[0].users.all.each do |user|
         invite(user.id, @order.id)
       end
     end
@@ -84,17 +88,7 @@ class OrderController < ApplicationController
     invites.each do |invite|
         invited_ids.push(invite.user_id)
     end
-    @invited_users=User.find(invited_ids)
-  end
-
-  def index
-    # @current_user = User.find(1)
-    my_orders = current_user.orders.order(created_at: :desc)
-    invites = current_user.invited_users
-    invited_to_orders = []
-    invites.each do |invite|
-      invited_to_orders.push(invite.order)
-    end
+    
 
     @orders = my_orders + invited_to_orders
     
@@ -139,14 +133,18 @@ class OrderController < ApplicationController
 
     pusher.trigger('my-channel', "#{user_id}", {
       message: "#{current_user.first_name} invited you to his order",
-      action_url: "/orders/#{order_id}/items",
-      img: "#{current_user.image}"
+      action_url: "/order/#{order_id}",
+      img: "#{current_user.image}",
+      notificationType: "join"
 
     })
     Notification.create({
       user_id: user_id,
       content: "#{current_user.first_name} invited you to his order",
-      actionURL: "/orders/#{order_id}/items",
+      actionURL: "/order/#{order_id}",
+      seen: false,
+      img: "#{current_user.image}",
+      notificationType: "join"
     })
     InvitedUser.create(user_id: user_id,order_id: order_id)
   end

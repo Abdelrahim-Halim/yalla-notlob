@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   before_action :getAllNotification
   def getAllNotification
     if current_user
-      @notifications = Notification.where(user_id: current_user.id)    
+      @notifications = Notification.where(user_id: current_user.id).order(created_at: :desc)    
     end
   end
 #   def serializable_hash(options = nil) 

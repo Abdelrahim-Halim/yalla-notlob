@@ -91,10 +91,11 @@
         break;
       }
     }
+    
     msg = document.getElementById("msg")
-    if (founded && mailValues.value.search(email)==-1 && groupValues.value.search(email)==-1){
-      if (invitaion_type == mail ){
-        addElement(name, invitaion_type, email)
+    if (founded && document.getElementById("mailValues").value.search(mail.value)==-1 && document.getElementById("groupValues").value.search(mail.value)==-1){
+      if (invitaion_type == "mail" ){
+        addElement(name, invitaion_type, email,img.url)
       }else{
         addElement(name, invitaion_type, name)
       }
@@ -110,7 +111,7 @@
     mail.value=""
   }
 
-  function addElement(name, invitaion_type, invitaion_value){
+  function addElement(name, invitaion_type, invitaion_value,imgSRC){
         inviteValues = null
         if (invitaion_type=="mail")
           inviteValues = document.getElementById("mailValues")
@@ -120,14 +121,14 @@
         row = document.getElementById("row")
 
         var div_col = document.createElement("div");
-        div_col.setAttribute("class","col-4")
+        div_col.setAttribute("class","container col-4")
 
         var div_cardBody = document.createElement("div");
         div_cardBody.setAttribute("class","card-body")
 
         var img = document.createElement("img");
         img.setAttribute("class","card-img-top")
-        img.src= img
+        img.src= imgSRC
 
         var cardHead = document.createElement("h5");
         cardHead.setAttribute("class","card-title")
@@ -145,7 +146,9 @@
 
         cardButton.onclick = remove
         cardButton.textContent = "remove"
+
         cardButton.setAttribute("id",invitaion_value)
+
 
         div_cardBody.appendChild(img)
         div_cardBody.appendChild(cardHead)
