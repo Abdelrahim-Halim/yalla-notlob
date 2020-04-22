@@ -25,6 +25,35 @@ This README would normally explain our web application which aims to order diffe
 * Invite Friends to order
 * Notifications
 
+### Installation
+
+1. Clone the repo
+```sh
+git clone https://github.com/Abdelrahim-Halim/yalla-notlob.git
+```
+2. Install NPM packages
+```sh
+yarn install
+```
+3. Install rails packages
+```sh
+bundle install
+```
+4. create database
+```
+rails db:create
+```
+5. migrate rails model to database 
+```
+rails db:migrate
+```
+6. run rails server
+```
+rails s
+```
+6. now you can access the webiste through this link ```http://127.0.0.1:3000```
+
+
 ## Contributors
 
 
