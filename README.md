@@ -3,7 +3,6 @@
 ![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/atefhares/CrowdFunding-Web-App/blob/master/LICENSE)
 
-![GitHub contributors](https://img.shields.io/github/contributors/Abdelrahim-Halim/yalla-notlob)
 This README would normally explain our web application which aims to order different food from different restaurants  and invite your friends to share the order with you .
 # Dependencies:
 * Ruby 2.6.3
